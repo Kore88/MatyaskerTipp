@@ -56,7 +56,7 @@
                 Height="55"
                 Width="100"
                 HorizontalAlignment="Right"
-                Margin="0,0,20,0"></Button>
+                Margin="0,0,20,0" Click="btnJovahagyas_Click"></Button>
         
     </Grid>
 </Window>

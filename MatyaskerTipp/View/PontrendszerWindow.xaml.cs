@@ -28,5 +28,10 @@ namespace MatyaskerTipp.View
         {
             tbxHDVpont.IsEnabled = true;
         }
+
+        private void btnJovahagyas_Click(object sender, RoutedEventArgs e)
+        {
+            tbxHDVpont.IsEnabled = false;
+        }
     }
 }
