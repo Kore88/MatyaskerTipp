@@ -1,0 +1,51 @@
+﻿<Window x:Class="MatyaskerTipp.View.SelectMenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MatyaskerTipp.View"
+        mc:Ignorable="d"
+        Title="SelectMenuWindow" Height="450" Width="200">
+    <Grid>
+        <Button x:Name="btnJavitoful"
+                Height="45"
+                Width="180"
+                Margin="0,30,0,0"
+                Content="Javítófül"
+                VerticalAlignment="top" Click="btnJavitoful_Click"></Button>
+
+        <Button x:Name="btnTabella"
+                Height="45"
+                Width="180"
+                Margin="0,90,0,0"
+                Content="Tabella"
+                VerticalAlignment="top" Click="btnTabella_Click"></Button>
+
+        <Button x:Name="btnJatekosok"
+                Height="45"
+                Width="180"
+                Margin="0,150,0,0"
+                Content="Játékosok"
+                VerticalAlignment="top" Click="btnJatekosok_Click"></Button>
+
+        <Button x:Name="btnBajnoksag"
+                Height="45"
+                Width="180"
+                Margin="0,210,0,0"
+                Content="Bajnokság"
+                VerticalAlignment="top" Click="btnBajnoksag_Click"></Button>
+        <Button x:Name="btnPontrendszer"
+                Height="45"
+                Width="180"
+                Margin="0,270,0,0"
+                Content="Pontrendszer"
+                VerticalAlignment="top" Click="btnPontrendszer_Click"></Button>
+        <Button x:Name="btnKielepes"
+                Height="45"
+                Width="180"
+                Margin="0,0,0,30"
+                Content="Kilépés"
+                VerticalAlignment="Bottom" Click="btnKielepes_Click"></Button>
+
+    </Grid>
+</Window>
