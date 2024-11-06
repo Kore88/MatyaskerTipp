@@ -1,4 +1,5 @@
 ﻿<Window xmlns:v="using:MatyaskerTipp.View"
+        xmlns:r="using:MatyaskerTipp.Resources"
         x:Class="MatyaskerTipp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,7 +13,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="View\Resuerces.xaml"/>
+                <ResourceDictionary Source="Resources\Resuerces.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
