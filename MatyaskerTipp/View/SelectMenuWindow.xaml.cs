@@ -58,5 +58,11 @@ namespace MatyaskerTipp.View
         {
             this.Close();
         }
+
+        private void btnMeccsek_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new MeccsekWindow();
+            window.Show();
+        }
     }
 }

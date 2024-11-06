@@ -12,19 +12,18 @@ namespace MatyaskerTipp.Model
         public string HomeName { get; set; }
         public string GuestName { get; set; }
         public DateTime Date { get; set; }
-        public int HomeGoals { get; set; }
-        public int GuestGoals { get; set; }
-        public bool IsAviable { get; set; } = false;
+        public int HomeGoals { get; set; } = 0;
+        public int GuestGoals { get; set; } = 0;
+        public bool isAvailable { get; set; } = false;
 
-        public Match(int id, string homeName, string guestName, DateTime date, int homeGoals, int guestGoals, bool isAviable)
+        public Match(string homeName, string guestName, DateTime date, int homeGoals, int guestGoals, bool isAvailable)
         {
-            Id = id;
             HomeName = homeName;
             GuestName = guestName;
             Date = date;
             HomeGoals = homeGoals;
             GuestGoals = guestGoals;
-            IsAviable = isAviable;
+            isAvailable = isAvailable;
         }
     }
 }

@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         Title="SelectMenuWindow" Height="450" Width="200">
     <Grid>
-        <Button x:Name="btnJavitoful"
+        <Button x:Name="btnMeccsek"
                 Height="45"
                 Width="180"
                 Margin="0,30,0,0"
-                Content="Javítófül"
-                VerticalAlignment="top" Click="btnJavitoful_Click"></Button>
+                Content="Meccsek"
+                VerticalAlignment="top"
+                Click="btnMeccsek_Click"></Button>
 
         <Button x:Name="btnTabella"
                 Height="45"
@@ -32,7 +33,7 @@
                 Height="45"
                 Width="180"
                 Margin="0,210,0,0"
-                Content="Bajnokság"
+                Content="Bajnokságok"
                 VerticalAlignment="top" Click="btnBajnoksag_Click"></Button>
         <Button x:Name="btnPontrendszer"
                 Height="45"

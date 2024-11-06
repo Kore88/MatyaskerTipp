@@ -52,7 +52,7 @@ namespace MatyaskerTipp
                         selectMenuWindow.Show();
                         this.Close();
                     }
-                    if (tbxFelhasznaloNev.Text == "" || tbxJelszo.Password == "")
+                    else if (tbxFelhasznaloNev.Text == "" || tbxJelszo.Password == "")
                     {
                         MessageBox.Show("A felhasználónév és a jelszó kitöltése kötelező!");
                     }
