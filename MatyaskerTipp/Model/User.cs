@@ -26,5 +26,9 @@ namespace MatyaskerTipp.Model
             IsActive = isActive;
             IsAdmin = isAdmin;
         }
+
+        public User()
+        {
+        }
     }
 }
