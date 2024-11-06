@@ -8,6 +8,6 @@ namespace MatyaskerTipp.MySQL
 {
     internal class MySqlConn
     {
-        public static string connection = "server=localhost; pwd=Bl@zor12345; database=matyaskert; uid=Blazor";
+        public static string connection = "server=localhost; pwd=Bl@zor1234; database=matyaskert; uid=Blazor";
     }
 }

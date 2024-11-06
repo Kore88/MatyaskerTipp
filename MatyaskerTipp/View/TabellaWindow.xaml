@@ -44,7 +44,7 @@
             Margin="0,50,0,0" 
             Grid.Row="1" 
             VerticalAlignment="Top" 
-            Width="100" 
+            Width="100"
             d:ItemsSource="{d:SampleData ItemCount=5}"/>
 
         <Label x:Name="lbJatekosPont"

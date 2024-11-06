@@ -83,7 +83,8 @@
                 Height="50"
                 VerticalAlignment="Bottom"
                 Margin="0,0,0,50"
-                Content="Bejelentkezés" Click="btnBejelentkezes_Click"></Button>
+                Content="Bejelentkezés" 
+                Click="btnBejelentkezes_Click"></Button>
 
     </Grid>
 </Window>

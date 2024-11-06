@@ -1,4 +1,7 @@
-﻿using MatyaskerTipp.View;
+﻿using MatyaskerTipp.Model;
+using MatyaskerTipp.MySQL;
+using MatyaskerTipp.View;
+using MySql.Data.MySqlClient;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,9 +32,42 @@ namespace MatyaskerTipp
 
         private void btnBejelentkezes_Click(object sender, RoutedEventArgs e)
         {
-            var selectMenuWindow = new SelectMenuWindow();
-            selectMenuWindow.Show();
-            this.Close();
+            MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+            try
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllUser,conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                
+                while (dr.Read())
+                {
+                    User admin = new User
+                    {
+                        UserName = dr["UserName"].ToString(),
+                        Password = dr["Password"].ToString()
+                    };
+                    if ((admin.UserName == tbxFelhasznaloNev.Text && admin.Password == tbxJelszo.Password))
+                    {
+                        var selectMenuWindow = new SelectMenuWindow();
+                        selectMenuWindow.Show();
+                        this.Close();
+                    }
+                    if (tbxFelhasznaloNev.Text == "" || tbxJelszo.Password == "")
+                    {
+                        MessageBox.Show("A felhasználónév és a jelszó kitöltése kötelező!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Téves felhasználónév vagy jelszó!");
+                    }
+
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            
+                { MessageBox.Show(ex.Message); }
+
         }
     
     }
