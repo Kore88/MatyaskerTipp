@@ -15,25 +15,18 @@ using System.Windows.Shapes;
 namespace MatyaskerTipp.View
 {
     /// <summary>
-    /// Interaction logic for BajnoksagWindow.xaml
+    /// Interaction logic for UjBajknoksagWindow.xaml
     /// </summary>
-    public partial class BajnoksagWindow : Window
+    public partial class UjBajknoksagWindow : Window
     {
-        public BajnoksagWindow()
+        public UjBajknoksagWindow()
         {
             InitializeComponent();
         }
 
-        private void btnSzerkesztes_Click(object sender, RoutedEventArgs e)
+        private void btnMegse_Click(object sender, RoutedEventArgs e)
         {
-            BajnoksagSzerkesztesWindow window = new BajnoksagSzerkesztesWindow();
-            window.Show();
-        }
-
-        private void btnUjBajnoksag_Click(object sender, RoutedEventArgs e)
-        {
-            UjBajknoksagWindow window = new UjBajknoksagWindow();
-            window.Show();
+            this.Close();
         }
     }
 }

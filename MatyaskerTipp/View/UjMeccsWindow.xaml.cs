@@ -36,10 +36,10 @@ namespace MatyaskerTipp.View
             MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
             try
             {
-                if (tbxHazai.Text != null && tbxVendeg.Text != null && dpHatarido.SelectedDate > DateTime.Now)
+                if (tbxHazai.Text != "" && tbxVendeg.Text != "" && dpHatarido.SelectedDate > DateTime.Now)
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(SqlCommans.addMatch1, conn);
+                    MySqlCommand cmd = new MySqlCommand(SqlCommans.addMatch, conn);
                     cmd.Parameters.AddWithValue("@homeName", tbxHazai.Text);
                     cmd.Parameters.AddWithValue("@guestName", tbxVendeg.Text);
                     cmd.Parameters.AddWithValue("@date", dpHatarido.SelectedDate);
@@ -53,7 +53,7 @@ namespace MatyaskerTipp.View
                 }
                 else
                 {
-                    if(tbxHazai.Text != null && tbxVendeg.Text != null && dpHatarido.SelectedDate < DateTime.Now)
+                    if(tbxHazai.Text != "" && tbxVendeg.Text != "" && dpHatarido.SelectedDate < DateTime.Now)
                     MessageBox.Show("Nem megfelelő határidő!");
                     else
                     {
