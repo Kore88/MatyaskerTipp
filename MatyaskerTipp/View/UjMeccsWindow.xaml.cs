@@ -43,9 +43,9 @@ namespace MatyaskerTipp.View
                     cmd.Parameters.AddWithValue("@homeName", tbxHazai.Text);
                     cmd.Parameters.AddWithValue("@guestName", tbxVendeg.Text);
                     cmd.Parameters.AddWithValue("@date", dpHatarido.SelectedDate);
-                    cmd.Parameters.AddWithValue("@homeGoals", 0);
-                    cmd.Parameters.AddWithValue("@guestGoals", 0);
-                    cmd.Parameters.AddWithValue("@isAvailable", 1);
+                    cmd.Parameters.AddWithValue("@homeGoals", -1);
+                    cmd.Parameters.AddWithValue("@guestGoals", -1);
+                    cmd.Parameters.AddWithValue("@isAvailable", 0);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Sikeres hozzáadás!");
                     tbxHazai.Text = "";

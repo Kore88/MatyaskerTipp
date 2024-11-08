@@ -24,11 +24,6 @@ namespace MatyaskerTipp.View
             InitializeComponent();
         }
 
-        private void btnJavitoful_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new JavitoFulWindow();
-            window.Show();
-        }
 
         private void btnTabella_Click(object sender, RoutedEventArgs e)
         {

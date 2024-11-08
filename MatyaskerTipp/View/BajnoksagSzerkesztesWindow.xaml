@@ -120,5 +120,11 @@
                 Visibility="Hidden"
                 Width="130"></Button>
 
+        <Label x:Name="lbContest"
+               Grid.Column="2"
+               Grid.Row="1"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"></Label>
+
     </Grid>
 </Window>

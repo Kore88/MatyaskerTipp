@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatyaskerTipp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,15 +20,23 @@ namespace MatyaskerTipp.View
     /// </summary>
     public partial class BajnoksagWindow : Window
     {
+        Contest contest;
+
         public BajnoksagWindow()
         {
             InitializeComponent();
+            contest = new Contest();
+            cbxBajnoksagok.ItemsSource = contest.GetAllContestName();
         }
 
         private void btnSzerkesztes_Click(object sender, RoutedEventArgs e)
         {
-            BajnoksagSzerkesztesWindow window = new BajnoksagSzerkesztesWindow();
-            window.Show();
+            if (cbxBajnoksagok.SelectedIndex != -1)
+            {
+                BajnoksagSzerkesztesWindow window = new BajnoksagSzerkesztesWindow(cbxBajnoksagok.SelectedIndex+1);
+                window.Show();
+            }
+
         }
 
         private void btnUjBajnoksag_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatyaskerTipp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,14 @@ namespace MatyaskerTipp.View
     /// </summary>
     public partial class TabellaWindow : Window
     {
+        private Contest contest;
+
         public TabellaWindow()
         {
             InitializeComponent();
+
+            contest = new Contest();
+            cbxTabella.ItemsSource = contest.GetAllContestName();
         }
     }
 }

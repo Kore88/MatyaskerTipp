@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatyaskerTipp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace MatyaskerTipp.View
 {
     /// <summary>
@@ -19,9 +21,12 @@ namespace MatyaskerTipp.View
     /// </summary>
     public partial class MeccsekWindow : Window
     {
+        private Match match;
         public MeccsekWindow()
         {
             InitializeComponent();
+            match = new Match();
+            lbxMeccsek.ItemsSource = match.GetAllNonCheckedMatches();
         }
 
         private void btnHozzaad_Click(object sender, RoutedEventArgs e)
