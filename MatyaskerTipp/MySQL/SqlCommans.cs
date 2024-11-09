@@ -17,5 +17,12 @@ namespace MatyaskerTipp.MySQL
         public static string selectAllNotAvailableMatch = "SELECT homeName,guestName FROM matyaskert.match WHERE isAvailable = 0";
         public static string selectAllAvailableMatch = "SELECT homeName,guestName FROM matyaskert.match WHERE isAvailable = 1";
         public static string selectAllNonCheckedMatch = "SELECT homeName, guestName FROM matyaskert.match WHERE homeGoals = -1 AND guestGoals = -1";
+        public static string selectContestRules = "SELECT scoringrules.description, scoringrules.points, scoringrules.contestId " +
+                                                  "FROM matyaskert.scoringrules " +
+                                                  "JOIN matyaskert.contest ON scoringrules.contestId = contest.id " +
+                                                  "WHERE contest.id = @contestId";
+        public static string selectContestIdByName = "SELECT id FROM matyaskert.contest WHERE name = @name";
+
+
     }
 }

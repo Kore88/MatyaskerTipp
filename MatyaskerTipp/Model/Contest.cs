@@ -51,5 +51,26 @@ namespace MatyaskerTipp.Model
 
             return contestNames;
         }
+   
+        public int GetContestIdByName(string contestName)
+        {
+            int contestId = -1;
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectContestIdByName, conn);
+                cmd.Parameters.AddWithValue("@name",contestName);
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                   contestId = dr.GetInt32(0);
+                }
+                conn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            return contestId;
+        }
     }
 }

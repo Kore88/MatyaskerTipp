@@ -12,6 +12,15 @@
             <RowDefinition Height="70"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <ComboBox x:Name="cbxBajnoksagok"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Width="100"
+                  Grid.Row="0"
+                  Margin="0,10,0,0"
+                  Height="20"
+                  SelectionChanged="cbxBajnoksagok_SelectionChanged"></ComboBox>
+        
         <Label x:Name="lbKimenetel"
                Content="Kimenetel"
                Width="80"
