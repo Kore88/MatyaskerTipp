@@ -1,4 +1,6 @@
 ﻿using MatyaskerTipp.Model;
+using MatyaskerTipp.MySQL;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +38,46 @@ namespace MatyaskerTipp.View
         private void btnJovahagyas_Click(object sender, RoutedEventArgs e)
         {
             tbxHDVpont.IsEnabled = false;
+            if (cbxBajnoksagok.SelectedIndex != -1)
+            {
+                string selectedContestName = (string)cbxBajnoksagok.SelectedItem;
+                Contest contest = new Contest();
+                int selectedContestId = contest.GetContestIdByName(selectedContestName);
+
+                ScoringRules scoringRules = new ScoringRules();
+                ScoringRules retrievedRules = scoringRules.GetContestRules(selectedContestId);
+
+                try
+                {
+                    MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                    conn.Open();
+                    MySqlCommand cmd;
+
+                    if (retrievedRules != null)
+                    {
+                        cmd = new MySqlCommand(SqlCommans.updateScoringRule, conn);
+
+                        cmd.Parameters.AddWithValue("@description", lbHDV.Content);
+                        cmd.Parameters.AddWithValue("@points", int.Parse(tbxHDVpont.Text));
+                        cmd.Parameters.AddWithValue("@contestId", selectedContestId);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Sikeres frissítés!");
+                    }
+                    else
+                    {
+                        cmd = new MySqlCommand(SqlCommans.instertIntoScoringRules, conn);
+   
+                        cmd.Parameters.AddWithValue("@description", lbHDV.Content);
+                        cmd.Parameters.AddWithValue("@points", int.Parse(tbxHDVpont.Text));
+                        cmd.Parameters.AddWithValue("@contestId", selectedContestId);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Sikeres hozzáadás!");
+                    }
+
+                        conn.Close();
+                }
+                catch (Exception ex) {MessageBox.Show(ex.Message);}
+            }
         }
 
         private void cbxBajnoksagok_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,6 +103,11 @@ namespace MatyaskerTipp.View
                     MessageBox.Show("Még nincs hozzáadva pontszerzési lehetőség a bajnoksághoz!");
                 }
             }
+        }
+
+        private void btnMegse_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

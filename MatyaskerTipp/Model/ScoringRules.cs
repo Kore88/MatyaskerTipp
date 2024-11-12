@@ -28,7 +28,7 @@ namespace MatyaskerTipp.Model
 
         public ScoringRules GetContestRules(int conId)
         {
-            ScoringRules rule = new ScoringRules();
+            ScoringRules rule = null;
 
             try
             {
@@ -40,6 +40,8 @@ namespace MatyaskerTipp.Model
 
                 if (dr.Read()) 
                 {
+                    rule = new ScoringRules();
+
                     rule.Desciption = dr.GetString("description");
                     rule.Points = dr.GetInt32("points");
                     rule.ContestId = dr.GetInt32("contestId");

@@ -23,6 +23,8 @@ namespace MatyaskerTipp.MySQL
                                                   "WHERE contest.id = @contestId";
         public static string selectContestIdByName = "SELECT id FROM matyaskert.contest WHERE name = @name";
 
+        public static string instertIntoScoringRules = "INSERT INTO matyaskert.scoringrules (description, points, contestId) VALUES (@description, @points, @contestId)";
+        public static string updateScoringRule = "UPDATE matyaskert.scoringrules SET description = @description, points = @points WHERE contestId = @contestId";
 
     }
 }
