@@ -17,7 +17,7 @@ namespace MatyaskerTipp.Model
         public DateTime Date { get; set; }
         public int HomeGoals { get; set; } = -1;
         public int GuestGoals { get; set; } = -1;
-        public bool IsAvaliable { get; set; } = false;
+        public bool IsAvailable { get; set; } = false;
 
         public Match(string homeName, string guestName, DateTime date, int homeGoals, int guestGoals, bool isAvailable)
         {
@@ -26,7 +26,7 @@ namespace MatyaskerTipp.Model
             Date = date;
             HomeGoals = homeGoals;
             GuestGoals = guestGoals;
-            IsAvaliable = isAvailable;
+            IsAvailable = isAvailable;
         }
 
         public Match()
@@ -133,5 +133,7 @@ namespace MatyaskerTipp.Model
 
             return matches;
         }
+
+
     }
 }

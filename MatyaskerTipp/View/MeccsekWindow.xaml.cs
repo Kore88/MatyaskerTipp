@@ -34,5 +34,15 @@ namespace MatyaskerTipp.View
             var window = new UjMeccsWindow();
             window.Show();
         }
+
+        private void btnJavitas_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbxMeccsek.SelectedIndex != -1)
+            {
+                int meccsId = lbxMeccsek.SelectedIndex + 1;
+                MeccsJavitasWindow window = new MeccsJavitasWindow(meccsId);
+                window.Show();
+            }
+        }
     }
 }

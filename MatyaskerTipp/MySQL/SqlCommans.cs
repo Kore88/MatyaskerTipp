@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MatyaskerTipp.MySQL
 {
@@ -25,6 +26,6 @@ namespace MatyaskerTipp.MySQL
 
         public static string instertIntoScoringRules = "INSERT INTO matyaskert.scoringrules (description, points, contestId) VALUES (@description, @points, @contestId)";
         public static string updateScoringRule = "UPDATE matyaskert.scoringrules SET description = @description, points = @points WHERE contestId = @contestId";
-
+        public static string selectedMatch = "SELECT id, homeName, guestName, date, homeGoals,guestGoals,isAvailable FROM matyaskert.match WHERE id = @idx";
     }
 }
