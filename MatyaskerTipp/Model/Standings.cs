@@ -8,7 +8,7 @@ namespace MatyaskerTipp.Model
 {
     internal class Standings
     {
-        public int Points { get; set; } = 0;
+        public int Points { get; set; } = -1;
         public int ContestID { get; set; }
         public int UserID { get; set; }
 

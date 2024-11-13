@@ -28,6 +28,11 @@ namespace MatyaskerTipp.View
 
             contest = new Contest();
             cbxTabella.ItemsSource = contest.GetAllContestName();
+
+            if (cbxTabella.SelectedIndex != -1 ) 
+                {
+                    
+                }
         }
     }
 }

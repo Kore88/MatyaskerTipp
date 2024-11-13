@@ -1,4 +1,6 @@
 ﻿using MatyaskerTipp.Model;
+using MatyaskerTipp.MySQL;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZstdSharp.Unsafe;
 
 
 namespace MatyaskerTipp.View
@@ -37,9 +40,10 @@ namespace MatyaskerTipp.View
 
         private void btnJavitas_Click(object sender, RoutedEventArgs e)
         {
+
             if (lbxMeccsek.SelectedIndex != -1)
             {
-                int meccsId = lbxMeccsek.SelectedIndex + 1;
+                int meccsId = int.Parse(lbxMeccsek.SelectedItem.ToString().Substring(0, 1));
                 MeccsJavitasWindow window = new MeccsJavitasWindow(meccsId);
                 window.Show();
             }

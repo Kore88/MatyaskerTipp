@@ -63,5 +63,32 @@ namespace MatyaskerTipp.View
         {
             this.Close();
         }
+
+        private void btnJavitas_Click(object sender, RoutedEventArgs e)
+        {
+            if(tbxGuestGoals.Text != "" && tbxHomeGoals.Text != "")
+            {
+                try
+                {
+                    MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(SqlCommans.updateMatch, conn);
+                    cmd.Parameters.AddWithValue("@homeGoals",int.Parse(tbxHomeGoals.Text));
+                    cmd.Parameters.AddWithValue("@guestGoals", int.Parse(tbxGuestGoals.Text));
+                    cmd.Parameters.AddWithValue("@isAvailable", 0);
+                    cmd.Parameters.AddWithValue("@id", match.Id);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Sikeres javítás!");
+
+                    conn.Close();
+                    this.Close();
+                }
+                catch(Exception ex) {  MessageBox.Show(ex.Message);}
+            }
+            else
+            {
+                MessageBox.Show("Mindkét eredmény kitöltése kötelező!");
+            }
+        }
     }
 }

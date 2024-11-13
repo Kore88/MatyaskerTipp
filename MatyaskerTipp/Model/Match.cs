@@ -117,11 +117,11 @@ namespace MatyaskerTipp.Model
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-
+                    string id = dr.GetInt32("id").ToString();
                     string home = dr.GetString("homeName");
                     string guest = dr.GetString("guestName");
 
-                    string match = home + "  VS  " + guest;
+                    string match =id+"\t"+ home + "  VS  " + guest;
 
                     matches.Add(match);
                 }

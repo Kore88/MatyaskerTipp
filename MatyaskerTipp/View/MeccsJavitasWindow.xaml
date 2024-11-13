@@ -70,7 +70,7 @@
                 Content="Javítás"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Width="80"></Button>
+                Width="80" Click="btnJavitas_Click"></Button>
 
 
     </Grid>
