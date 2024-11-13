@@ -29,6 +29,7 @@
                   VerticalAlignment="Center"
                   Margin="0,50,0,0"
                   Width="100"
+                  SelectionChanged="cbxTabella_SelectionChanged"
                   ></ComboBox>
         
         <Label x:Name="lbJatekosNev"

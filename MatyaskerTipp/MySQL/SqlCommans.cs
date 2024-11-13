@@ -1,9 +1,12 @@
-﻿using System;
+﻿using MatyaskerTipp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
+using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MatyaskerTipp.MySQL
@@ -29,6 +32,19 @@ namespace MatyaskerTipp.MySQL
         public static string updateScoringRule = "UPDATE matyaskert.scoringrules SET description = @description, points = @points WHERE contestId = @contestId";
         public static string selectedMatch = "SELECT id, homeName, guestName, date, homeGoals,guestGoals,isAvailable FROM matyaskert.match WHERE id = @idx";
         public static string updateMatch = "UPDATE matyaskert.match SET homeGoals = @homeGoals, guestGoals = @guestGoals, isAvailable = @isAvailable WHERE id = @id";
+
+        //public static string selectContestUsers = "SELECT realName FROM matyaskert.user " +
+        //    "JOIN matyaskert.standings ON standings.userId = user.id " +
+        //    "JOIN matyaskert.contest  ON contest.id = standings.contestId" +
+        //    "WHERE contest.name = @selectedContest";
+
+        public static string selectContestUsers = "SELECT realName FROM matyaskert.User " +
+            "JOIN matyaskert.Standings ON Standings.userId = User.id " +
+            "JOIN matyaskert.Contest ON Contest.id = Standings.contestId " +
+            "WHERE Contest.name = @selectedContest";
+
+
+
 
     }
 }

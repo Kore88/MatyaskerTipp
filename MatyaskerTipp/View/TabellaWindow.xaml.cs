@@ -1,4 +1,6 @@
 ﻿using MatyaskerTipp.Model;
+using MatyaskerTipp.MySQL;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,8 @@ namespace MatyaskerTipp.View
     public partial class TabellaWindow : Window
     {
         private Contest contest;
+        private List<string> userNames;
+
 
         public TabellaWindow()
         {
@@ -28,11 +32,37 @@ namespace MatyaskerTipp.View
 
             contest = new Contest();
             cbxTabella.ItemsSource = contest.GetAllContestName();
+            
 
-            if (cbxTabella.SelectedIndex != -1 ) 
+        }
+
+        private void cbxTabella_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbxTabella.SelectedIndex != -1)
+            {
+                userNames = new List<string>();
+                try
                 {
-                    
+                    MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(SqlCommans.selectContestUsers, conn);
+                    cmd.Parameters.AddWithValue("@selectedContest", cbxTabella.SelectedItem.ToString());
+                    MySqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        string realName = dr.GetString(0);
+                        userNames.Add(realName);
+                    }
+                    conn.Close();
                 }
+                
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+                lbxJatekosok.ItemsSource = userNames;
+
+            }
+
         }
     }
 }

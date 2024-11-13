@@ -51,16 +51,17 @@ namespace MatyaskerTipp
                         var selectMenuWindow = new SelectMenuWindow();
                         selectMenuWindow.Show();
                         this.Close();
+                        conn.Close();
+                        return;
                     }
-                    else if (tbxFelhasznaloNev.Text == "" || tbxJelszo.Password == "")
-                    {
-                        MessageBox.Show("A felhasználónév és a jelszó kitöltése kötelező!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Téves felhasználónév vagy jelszó!");
-                    }
-
+                }
+                if (tbxFelhasznaloNev.Text == "" || tbxJelszo.Password == "")
+                {
+                    MessageBox.Show("A felhasználónév és a jelszó kitöltése kötelező!");
+                }
+                else
+                {
+                    MessageBox.Show("Téves felhasználónév vagy jelszó!");
                 }
                 conn.Close();
             }
