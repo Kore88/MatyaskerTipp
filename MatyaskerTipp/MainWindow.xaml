@@ -67,7 +67,9 @@
                VerticalAlignment="Top"
                Width="120"
                PasswordChar="*"
-               Margin="0,200,0,0"></PasswordBox>
+               KeyUp="TextBox_KeyUp"
+               Margin="0,200,0,0">
+        </PasswordBox>
 
         <Image x:Name="imgLogo1"
                Grid.Column="2"

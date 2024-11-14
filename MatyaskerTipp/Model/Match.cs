@@ -6,17 +6,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Media3D;
 
 namespace MatyaskerTipp.Model
 {
-    internal class Match
+    internal class Match : ObservableObjects
     {
+        private int _GuestGoals;
+        private int _HomeGoals;
         public int Id { get; set; }
         public string HomeName { get; set; }
         public string GuestName { get; set; }
         public DateTime Date { get; set; }
-        public int HomeGoals { get; set; } = -1;
-        public int GuestGoals { get; set; } = -1;
+        public int HomeGoals {
+            get => _HomeGoals;
+            set {
+                if (_HomeGoals != value)
+                {
+                    _HomeGoals = value;
+                    Notify(nameof(HomeGoals));
+                }
+            }
+        }
+        public int GuestGoals
+        {
+            get => _GuestGoals;
+            set
+            {
+                if (_GuestGoals != value)
+                {
+                    _GuestGoals = value;
+                    Notify(nameof(GuestGoals));
+                }
+            }
+        }
         public bool IsAvailable { get; set; } = false;
 
         public Match(string homeName, string guestName, DateTime date, int homeGoals, int guestGoals, bool isAvailable)
@@ -31,6 +54,8 @@ namespace MatyaskerTipp.Model
 
         public Match()
         {
+            GuestGoals = -1;
+            HomeGoals = -1;
         }
 
         public List<string> GetAllNotAviableMatches()
@@ -72,6 +97,7 @@ namespace MatyaskerTipp.Model
         public List<string> GetAllAviableMatches()
         {
             List<string> matches = new List<string>();
+            matches.Clear();
             try
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);

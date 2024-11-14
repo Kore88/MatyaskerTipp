@@ -1,10 +1,12 @@
 ﻿using MatyaskerTipp.Model;
 using MatyaskerTipp.MySQL;
+using MatyaskerTipp.ViewModel;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,12 +26,13 @@ namespace MatyaskerTipp.View
     /// </summary>
     public partial class MeccsekWindow : Window
     {
-        private Match match;
+        private MeccsekViewModel match;
         public MeccsekWindow()
         {
             InitializeComponent();
-            match = new Match();
-            lbxMeccsek.ItemsSource = match.GetAllNonCheckedMatches();
+            match = new MeccsekViewModel();
+            lbxMeccsek.ItemsSource = match.items;
+            match.PropertyChanged += PropertyChanged;
         }
 
         private void btnHozzaad_Click(object sender, RoutedEventArgs e)
@@ -40,13 +43,16 @@ namespace MatyaskerTipp.View
 
         private void btnJavitas_Click(object sender, RoutedEventArgs e)
         {
-
             if (lbxMeccsek.SelectedIndex != -1)
             {
-                int meccsId = int.Parse(lbxMeccsek.SelectedItem.ToString().Substring(0, 1));
-                MeccsJavitasWindow window = new MeccsJavitasWindow(meccsId);
-                window.Show();
+                match.Javitas(lbxMeccsek.SelectedItem.ToString());
             }
+        }
+
+        private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            lbxMeccsek.ItemsSource = match.items;
+            this.UpdateLayout();
         }
     }
 }

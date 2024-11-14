@@ -30,6 +30,16 @@ namespace MatyaskerTipp
             this.Close();
         }
 
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                // your event handler here
+                e.Handled = true;
+                btnBejelentkezes_Click(sender, e);
+            }
+        }
+
         private void btnBejelentkezes_Click(object sender, RoutedEventArgs e)
         {
             MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
@@ -70,6 +80,6 @@ namespace MatyaskerTipp
                 { MessageBox.Show(ex.Message); }
 
         }
-    
+
     }
 }
