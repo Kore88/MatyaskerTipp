@@ -38,7 +38,7 @@
                 Height="35"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Margin="40,0,0,0"></Button>
+                Margin="40,0,0,0" Click="btnEltavolitas_Click"></Button>
 
         <Button x:Name="btnModositas"
                 Content="Módosítás"
@@ -71,7 +71,7 @@
                 Height="35"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Margin="40,0,0,0"></Button>
+                Margin="40,0,0,0" Click="btnAktivalas_Click"></Button>
 
 
         <Button x:Name="btnModositas2"

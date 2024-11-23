@@ -1,4 +1,6 @@
 ﻿using MatyaskerTipp.Model;
+using MatyaskerTipp.MySQL;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,55 @@ namespace MatyaskerTipp.View
         {
             UjBajknoksagWindow window = new UjBajknoksagWindow();
             window.Show();
+        }
+
+        private void cbxBajnoksagok_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbxBajnoksagok.SelectedIndex != -1)
+            {
+                string selectedContest = cbxBajnoksagok.SelectedItem.ToString();
+                var matches = GetMatchesByContest(selectedContest)
+                    .Select(m => $"{m.HomeName} vs {m.GuestName}").ToList();
+
+                lbxMeccsek.ItemsSource = matches;
+            }
+        }
+        private List<Match> GetMatchesByContest(string contestName)
+        {
+            List<Match> matches = new List<Match>();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(MySqlConn.connection))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchesByContest, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@contestName", contestName);
+
+                        using (MySqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                matches.Add(new Match
+                                {
+                                    Id = dr.GetInt32("id"),
+                                    HomeName = dr.GetString("homeName"),
+                                    GuestName = dr.GetString("guestName"),
+                                    Date = dr.GetDateTime("date")
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a meccsek betöltése során: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return matches;
         }
     }
 }

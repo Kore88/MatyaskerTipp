@@ -30,5 +30,12 @@ namespace MatyaskerTipp.Model
         public User()
         {
         }
+
+        public User(string userName, string realName, bool isActive)
+        {
+            UserName = userName;
+            RealName = realName;
+            IsActive = isActive;
+        }
     }
 }

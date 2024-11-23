@@ -43,6 +43,8 @@ namespace MatyaskerTipp.View
                 userNames = new List<string>();
                 try
                 {
+                    List<ContestPlayer> contestPlayers = new List<ContestPlayer>();
+
                     MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand(SqlCommans.selectContestUsers, conn);
@@ -51,15 +53,18 @@ namespace MatyaskerTipp.View
 
                     while (dr.Read())
                     {
-                        string realName = dr.GetString(0);
-                        userNames.Add(realName);
+                        contestPlayers.Add(new ContestPlayer
+                        {
+                            RealName = dr.GetString("realName"),
+                            Points = dr.GetInt32("points")
+                        });
                     }
                     conn.Close();
+
+                    dgTabella.ItemsSource = contestPlayers;
                 }
                 
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-                lbxJatekosok.ItemsSource = userNames;
 
             }
 

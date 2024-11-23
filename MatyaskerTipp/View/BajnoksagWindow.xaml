@@ -17,7 +17,7 @@
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top"
                   Margin="0,15,0,0"
-                  Width="150"></ComboBox>
+                  Width="150" SelectionChanged="cbxBajnoksagok_SelectionChanged"></ComboBox>
 
         <ListBox x:Name="lbxMeccsek"
                  Grid.Column="1"

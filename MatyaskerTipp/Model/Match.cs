@@ -69,27 +69,19 @@ namespace MatyaskerTipp.Model
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    //Match match = new Match
-                    //{
-                    //    Id = dr.GetInt32("id"),
-                    //    HomeName = dr.GetString("homeName"),
-                    //    GuestName = dr.GetString("guestName"),
-                    //    Date = dr.GetDateTime("date"),
-                    //    HomeGoals = dr.GetInt32("homeGoals"),
-                    //    GuestGoals = dr.GetInt32("guestGoals"),
-                    //    IsAvaliable = dr.GetBoolean("isAvaliable")
-                    //};
+                    int matchId = dr.GetInt32("Id");
                     string home = dr.GetString("homeName");
                     string guest = dr.GetString("guestName");
 
-                    string match = home + " " + guest;
+                    string match = $"{matchId} {home} VS {guest}";
 
                     matches.Add(match);
                 }
-
-            }catch (Exception ex) { MessageBox.Show(ex.Message); }
-           
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching not available matches: " + ex.Message);
+            }
 
             return matches;
         }
@@ -97,7 +89,6 @@ namespace MatyaskerTipp.Model
         public List<string> GetAllAviableMatches()
         {
             List<string> matches = new List<string>();
-            matches.Clear();
             try
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
@@ -106,28 +97,19 @@ namespace MatyaskerTipp.Model
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    //Match match = new Match
-                    //{
-                    //    Id = dr.GetInt32("id"),
-                    //    HomeName = dr.GetString("homeName"),
-                    //    GuestName = dr.GetString("guestName"),
-                    //    Date = dr.GetDateTime("date"),
-                    //    HomeGoals = dr.GetInt32("homeGoals"),
-                    //    GuestGoals = dr.GetInt32("guestGoals"),
-                    //    IsAvaliable = dr.GetBoolean("isAvaliable")
-                    //};
+                    int matchId = dr.GetInt32("Id");
                     string home = dr.GetString("homeName");
                     string guest = dr.GetString("guestName");
 
-                    string match = home + "  VS  " + guest;
+                    string match = $"{matchId} {home} VS {guest}";
 
                     matches.Add(match);
                 }
-
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching available matches: " + ex.Message);
+            }
 
             return matches;
         }

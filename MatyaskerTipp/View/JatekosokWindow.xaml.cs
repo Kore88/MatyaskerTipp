@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MatyaskerTipp.Model;
+using MatyaskerTipp.MySQL;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +25,87 @@ namespace MatyaskerTipp.View
         public JatekosokWindow()
         {
             InitializeComponent();
+            dgJatekosok.ItemsSource = LoadNonAdminUsers();
+        }
+
+        private void btnSzerkesztes_Click(object sender, RoutedEventArgs e)
+        {
+            var checkBoxColumn = dgJatekosok.Columns
+                .OfType<DataGridCheckBoxColumn>()
+                .FirstOrDefault();
+
+            if (checkBoxColumn != null)
+            {
+                var isCurrentlyReadOnly = checkBoxColumn.IsReadOnly;
+                checkBoxColumn.IsReadOnly = !isCurrentlyReadOnly;
+            }
+        }
+
+        private void btnJovahagyas_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                conn.Open();
+
+
+                foreach (var item in dgJatekosok.Items)
+                    {
+                        if (item is User user)
+                        {
+
+                            using (MySqlCommand cmd = new MySqlCommand(SqlCommans.updateStatus, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@isActive", user.IsActive ? 1 : 0);
+                                cmd.Parameters.AddWithValue("@id", user.Id);
+
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                MessageBox.Show("A változások mentésre kerültek!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a mentés során: {ex.Message}");
+            }
+        }
+
+        private List<User> LoadNonAdminUsers()
+        {
+            List<User> users = new List<User>();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(MySqlConn.connection))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllUsers, conn))
+                    {
+                        using (MySqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                users.Add(new User
+                                {
+                                    Id = dr.GetInt32("id"),
+                                    UserName = dr.GetString("username"),
+                                    RealName = dr.GetString("realname"),
+                                    IsActive = dr.GetBoolean("isActive")
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a felhasználók betöltése során: {ex.Message}");
+            }
+
+            return users;
         }
     }
 }

@@ -32,23 +32,22 @@
                   SelectionChanged="cbxTabella_SelectionChanged"
                   ></ComboBox>
         
-        <Label x:Name="lbJatekosNev"
+        <!--<Label x:Name="lbJatekosNev"
                Grid.Column="0"
                Grid.Row="1"
                Content="Játékos neve"
                VerticalAlignment="Top"
                Margin="0,10,0,0"
-               HorizontalAlignment="Center"></Label>
-        <ListBox x:Name="lbxJatekosok"
+               HorizontalAlignment="Center"></Label>-->
+        <!--<ListBox x:Name="lbxJatekosok"
             HorizontalAlignment="Center" 
             Height="250" 
             Margin="0,50,0,0" 
             Grid.Row="1" 
             VerticalAlignment="Top" 
-            Width="100"
-            d:ItemsSource="{d:SampleData ItemCount=5}"/>
+            Width="100"/>-->
 
-        <Label x:Name="lbJatekosPont"
+        <!--<Label x:Name="lbJatekosPont"
                Grid.Column="1"
                Grid.Row="1"
                Content="Játékos pontszáma"
@@ -62,8 +61,22 @@
             Grid.Row="1"
             Grid.Column="1"
             VerticalAlignment="Top" 
-            Width="100" 
-            d:ItemsSource="{d:SampleData ItemCount=5}"/>
+            Width="100"/>-->
+
+        <DataGrid x:Name="dgTabella"
+              Grid.Row="1"
+              Grid.ColumnSpan="2"
+              AutoGenerateColumns="False"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Width="200"
+              Height="300"
+              Margin="0,20,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Játékos neve" Binding="{Binding RealName}" Width="150" />
+                <DataGridTextColumn Header="Pontok" Binding="{Binding Points}" Width="80" />
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>
