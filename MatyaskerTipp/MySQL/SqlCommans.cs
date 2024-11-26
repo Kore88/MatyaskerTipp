@@ -67,5 +67,21 @@ namespace MatyaskerTipp.MySQL
         public static string insertInContest = "INSERT INTO InContest (ContestId, MatchId) VALUES (@contestId, @matchId)";
         public static string updateMatchQuery = "UPDATE matyaskert.match SET isAvailable = 1 WHERE id = @matchId";
 
+        public static string selectMatchesInContest = "SELECT id, homeName, guestName " +
+            "FROM matyaskert.match " +
+            "JOIN matyaskert.incontest " +
+            "ON matyaskert.match.id = matyaskert.incontest.matchId " +
+            "WHERE matyaskert.incontest.contestId = @id";
+
+        public static string selectMatchesNotInContest = "SELECT id, homeName, guestName " +
+             "FROM matyaskert.match " +
+             "WHERE matyaskert.match.id NOT IN (" +
+           "    SELECT matyaskert.incontest.matchId " +
+            "    FROM matyaskert.incontest " +
+            "    WHERE matyaskert.incontest.contestId = @id" +
+                ")";
+
+        public static string setContestOpened = "UPDATE matyaskert.contest SET isopened = 1 WHERE id = @id";
+        public static string setContestClosed = "UPDATE matyaskert.contest SET isopened = 0 WHERE id = @id";
     }
 }

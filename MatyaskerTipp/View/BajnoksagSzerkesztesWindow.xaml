@@ -108,7 +108,8 @@
                 Content="Bajnokság indítása"
                 Height="35"
                 Visibility="Hidden"
-                Width="130"></Button>
+                Width="130"
+                Click="btnInditas_Click"></Button>
 
         <Button x:Name="btnLezaras"
                 Grid.Column="2"
@@ -118,7 +119,8 @@
                 Content="Bajnokság lezárása"
                 Height="35"
                 Visibility="Hidden"
-                Width="130"></Button>
+                Width="130"
+                Click="btnLezaras_Click"></Button>
 
         <Label x:Name="lbContest"
                Grid.Column="2"

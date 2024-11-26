@@ -31,9 +31,12 @@ namespace MatyaskerTipp.View
         private string selectedMatch;
         private ObservableCollection<string> aktivMatches = new ObservableCollection<string>();
         private ObservableCollection<string> inaktivMatches = new ObservableCollection<string>();
+        private int contestId;
+
         public BajnoksagSzerkesztesWindow(int idx)
         {
             InitializeComponent();
+            contestId = idx;
             try
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
@@ -60,13 +63,13 @@ namespace MatyaskerTipp.View
 
 
             match = new Match();
-            var notAvailableMatches = match.GetAllNotAviableMatches();
+            var notAvailableMatches = GetAllContestNonAddedMatches();
             foreach (var match in notAvailableMatches)
             {
                 inaktivMatches.Add(match);
             }
 
-            var availableMatches = match.GetAllAviableMatches();
+            var availableMatches = GetAllContestAddedMatches();
             foreach (var match in availableMatches)
             {
                 aktivMatches.Add(match);
@@ -97,8 +100,8 @@ namespace MatyaskerTipp.View
             if (lbxAktiv.SelectedItem != null)
             {
                 string selectedMatch = lbxAktiv.SelectedItem.ToString();
-                string[] matchDetails = selectedMatch.Split(' ');  // Assuming format "matchId homeName VS guestName"
-                int matchId = Convert.ToInt32(matchDetails[0]);  // Extract the matchId from the string
+                string[] matchDetails = selectedMatch.Split(' ');  
+                int matchId = Convert.ToInt32(matchDetails[0]);  
 
                 try
                 {
@@ -106,15 +109,13 @@ namespace MatyaskerTipp.View
                     MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
                     conn.Open();
 
-                    // Query to delete the match from the contest (InContest table)
                     string query = "DELETE FROM InContest WHERE ContestId = @contestId AND MatchId = @matchId";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@contestId", contest.Id);  // Use the contest.Id from the form
-                    cmd.Parameters.AddWithValue("@matchId", matchId);  // Use the matchId from the selected match
+                    cmd.Parameters.AddWithValue("@contestId", contest.Id); 
+                    cmd.Parameters.AddWithValue("@matchId", matchId); 
                     cmd.ExecuteNonQuery();
                     conn.Close();
 
-                    // Remove the match from the ObservableCollection (list view)
                     aktivMatches.Remove(lbxAktiv.SelectedItem.ToString());
                 }
                 catch (Exception ex)
@@ -138,21 +139,21 @@ namespace MatyaskerTipp.View
 
                 try
                 {
-                    int firstSpaceIndex = selectedMatch.IndexOf(' ');
-                    if (firstSpaceIndex == -1)
+                    int tabIndex = selectedMatch.IndexOf('\t');
+                    if (tabIndex == -1)
                     {
                         MessageBox.Show("Invalid match format.");
                         return;
                     }
 
-                    string matchIdString = selectedMatch.Substring(0, firstSpaceIndex).Trim();
+                    string matchIdString = selectedMatch.Substring(0, tabIndex).Trim();
                     if (!int.TryParse(matchIdString, out int matchId))
                     {
                         MessageBox.Show("Invalid match ID.");
                         return;
                     }
 
-                    string remainingString = selectedMatch.Substring(firstSpaceIndex + 1).Trim();
+                    string remainingString = selectedMatch.Substring(tabIndex + 1).Trim();
                     string[] teams = remainingString.Split(new string[] { " VS " }, StringSplitOptions.None);
 
                     if (teams.Length == 2)
@@ -195,28 +196,111 @@ namespace MatyaskerTipp.View
             }
         }
 
-        private int GetMatchId(string homeName, string guestName)
+        //private int GetMatchId(string homeName, string guestName)
+        //{
+        //    try
+        //    {
+        //        MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+        //        conn.Open();
+
+                
+        //        MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchId, conn);
+        //        cmd.Parameters.AddWithValue("@homeName", homeName);
+        //        cmd.Parameters.AddWithValue("@guestName", guestName);
+
+        //        var result = cmd.ExecuteScalar();
+        //        conn.Close();
+
+        //        return result != null ? Convert.ToInt32(result) : 0;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error fetching match ID: " + ex.Message);
+        //        return 0;
+        //    }
+        //}
+
+        public List<string> GetAllContestAddedMatches()
+        {
+            List<string> matches = new List<string>();
+
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchesInContest, conn);
+                cmd.Parameters.AddWithValue("@id", contestId);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    string id = dr.GetInt32("id").ToString();
+                    string home = dr.GetString("homeName");
+                    string guest = dr.GetString("guestName");
+
+                    string match = id+"\t"+ home + "  VS  " + guest;
+
+                    matches.Add(match);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            return matches;
+        }
+
+        public List<string> GetAllContestNonAddedMatches()
+        {
+            List<string> matches = new List<string>();
+
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchesNotInContest, conn);
+                cmd.Parameters.AddWithValue("@id", contestId);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    string id = dr.GetInt32("id").ToString();
+                    string home = dr.GetString("homeName");
+                    string guest = dr.GetString("guestName");
+
+                    string match = id + "\t" + home + "  VS  " + guest;
+
+                    matches.Add(match);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            return matches;
+        }
+
+        private void btnInditas_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
                 conn.Open();
-
-                
-                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchId, conn);
-                cmd.Parameters.AddWithValue("@homeName", homeName);
-                cmd.Parameters.AddWithValue("@guestName", guestName);
-
-                var result = cmd.ExecuteScalar();
-                conn.Close();
-
-                return result != null ? Convert.ToInt32(result) : 0;
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.setContestOpened, conn);
+                cmd.Parameters.AddWithValue("@id", contestId);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("A bajnokság megnyitva!");
             }
-            catch (Exception ex)
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void btnLezaras_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Error fetching match ID: " + ex.Message);
-                return 0;
+                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.setContestClosed, conn);
+                cmd.Parameters.AddWithValue("@id", contestId);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("A bajnokság lezárva!");
+
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }
