@@ -1,5 +1,6 @@
 ﻿using MatyaskerTipp.Model;
 using MatyaskerTipp.MySQL;
+using MatyaskerTipp.ViewModel;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,12 @@ namespace MatyaskerTipp.View
         private ObservableCollection<string> aktivMatches = new ObservableCollection<string>();
         private ObservableCollection<string> inaktivMatches = new ObservableCollection<string>();
         private int contestId;
+        private BajnoksagViewModel bvm;
 
-        public BajnoksagSzerkesztesWindow(int idx)
+        public BajnoksagSzerkesztesWindow(BajnoksagViewModel bvm, int idx)
         {
             InitializeComponent();
+            this.bvm = bvm;
             contestId = idx;
             try
             {
@@ -117,6 +120,7 @@ namespace MatyaskerTipp.View
                     conn.Close();
 
                     aktivMatches.Remove(lbxAktiv.SelectedItem.ToString());
+                    bvm.InvokeNotify();
                 }
                 catch (Exception ex)
                 {
@@ -184,6 +188,7 @@ namespace MatyaskerTipp.View
                     // Update ObservableCollections instead of directly manipulating ListBox.Items
                     inaktivMatches.Remove(selectedMatch); // Removes from ObservableCollection
                     aktivMatches.Add(selectedMatch);     // Adds to ObservableCollection
+                    bvm.InvokeNotify();
                 }
                 catch (Exception ex)
                 {

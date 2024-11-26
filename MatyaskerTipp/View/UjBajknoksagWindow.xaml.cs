@@ -1,4 +1,5 @@
 ﻿using MatyaskerTipp.MySQL;
+using MatyaskerTipp.ViewModel;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,10 @@ namespace MatyaskerTipp.View
     /// </summary>
     public partial class UjBajknoksagWindow : Window
     {
-        public UjBajknoksagWindow()
+        private BajnoksagViewModel bvm;
+        public UjBajknoksagWindow(BajnoksagViewModel bvm)
         {
+            this.bvm = bvm;
             InitializeComponent();
         }
 
@@ -66,6 +69,7 @@ namespace MatyaskerTipp.View
 
             }
             catch (Exception ex) {MessageBox.Show(ex.Message); }
+            bvm.InvokeNotify();
         }
     }
 }

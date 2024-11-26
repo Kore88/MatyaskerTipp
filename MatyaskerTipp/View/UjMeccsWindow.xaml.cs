@@ -1,9 +1,11 @@
 ﻿using MatyaskerTipp.MySQL;
+using MatyaskerTipp.ViewModel;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,8 +23,10 @@ namespace MatyaskerTipp.View
     /// </summary>
     public partial class UjMeccsWindow : Window
     {
-        public UjMeccsWindow()
+        private MeccsekViewModel mvm;
+        public UjMeccsWindow(MeccsekViewModel mvm)
         {
+            this.mvm = mvm;
             InitializeComponent();
         }
 
@@ -64,6 +68,7 @@ namespace MatyaskerTipp.View
             catch (Exception ex)
 
             { MessageBox.Show(ex.Message); }
+            mvm.InvokeNotify();
         }
     }
 }

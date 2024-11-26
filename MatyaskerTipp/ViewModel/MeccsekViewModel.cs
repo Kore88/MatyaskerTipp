@@ -23,7 +23,7 @@ namespace MatyaskerTipp.ViewModel
         }
         public void Hozzaad()
         {
-            var window = new UjMeccsWindow();
+            var window = new UjMeccsWindow(this);
             window.Show();
         }
 
@@ -45,8 +45,11 @@ namespace MatyaskerTipp.ViewModel
 
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            items.Clear();
-            items = match.GetAllNonCheckedMatches();
+            Notify();
+        }
+
+        public void InvokeNotify()
+        {
             Notify();
         }
     }
