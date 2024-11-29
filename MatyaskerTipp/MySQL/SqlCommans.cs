@@ -83,5 +83,37 @@ namespace MatyaskerTipp.MySQL
 
         public static string setContestOpened = "UPDATE matyaskert.contest SET isopened = 1 WHERE id = @id";
         public static string setContestClosed = "UPDATE matyaskert.contest SET isopened = 0 WHERE id = @id";
+
+        public static string updateStandings = @"
+    UPDATE matyaskert.standings s 
+    JOIN ( 
+        SELECT 
+            b.UserId, 
+            b.ContestId, 
+            SUM(
+                CASE
+                    -- Hazai győzelem tipp és a valós eredmény is hazai győzelem
+                    WHEN b.HomeGoals > b.GuestGoals AND m.HomeGoals > m.GuestGoals THEN sr.Points
+                    -- Vendég győzelem tipp és a valós eredmény is vendég győzelem
+                    WHEN b.HomeGoals < b.GuestGoals AND m.HomeGoals < m.GuestGoals THEN sr.Points
+                    -- Döntetlen tipp és a valós eredmény is döntetlen
+                    WHEN b.HomeGoals = b.GuestGoals AND m.HomeGoals = m.GuestGoals THEN sr.Points
+                    -- Ha nem volt helyes tipp, nem adunk pontot
+                    ELSE 0
+                END
+            ) AS TotalPoints 
+        FROM matyaskert.bet b 
+        JOIN matyaskert.match m ON b.MatchId = m.Id 
+        JOIN matyaskert.incontest ic ON ic.MatchId = m.Id AND ic.ContestId = b.ContestId 
+        JOIN matyaskert.scoringrules sr ON sr.ContestId = b.ContestId 
+        GROUP BY b.UserId, b.ContestId
+    ) calculatedPoints 
+    ON calculatedPoints.UserId = s.UserID AND calculatedPoints.ContestId = s.ContestID 
+    SET s.Points = calculatedPoints.TotalPoints;
+";
+
+
+
+
     }
 }

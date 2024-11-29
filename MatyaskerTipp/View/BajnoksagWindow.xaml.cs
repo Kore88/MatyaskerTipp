@@ -40,7 +40,7 @@ namespace MatyaskerTipp.View
         {
             if (cbxBajnoksagok.SelectedIndex != -1)
             {
-                bvm.BajnoksagSzerkesztes(cbxBajnoksagok.SelectedIndex + 2);
+                bvm.BajnoksagSzerkesztes(cbxBajnoksagok.SelectedIndex + 1);
             }
 
         }

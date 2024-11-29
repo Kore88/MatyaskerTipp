@@ -51,27 +51,46 @@ namespace MatyaskerTipp.ViewModel
             hname = match.HomeName;
         }
 
+
         public void Javitas(string home, string guest)
         {
             try
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand(SqlCommans.updateMatch, conn);
-                cmd.Parameters.AddWithValue("@homeGoals", int.Parse(home));
-                cmd.Parameters.AddWithValue("@guestGoals", int.Parse(guest));
-                cmd.Parameters.AddWithValue("@isAvailable", 0);
-                cmd.Parameters.AddWithValue("@id", match.Id);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Sikeres javítás!");
+
+                // Frissítjük a mérkőzés eredményét
+                MySqlCommand updateMatchCmd = new MySqlCommand(SqlCommans.updateMatch, conn);
+                updateMatchCmd.Parameters.AddWithValue("@homeGoals", int.Parse(home));
+                updateMatchCmd.Parameters.AddWithValue("@guestGoals", int.Parse(guest));
+                updateMatchCmd.Parameters.AddWithValue("@isAvailable", 0);
+                updateMatchCmd.Parameters.AddWithValue("@id", match.Id);
+                updateMatchCmd.ExecuteNonQuery();
+
+                // Kinyerjük a ContestId-t a match.Id alapján
+                MySqlCommand selectContestIdCmd = new MySqlCommand("SELECT ContestId FROM matyaskert.incontest WHERE MatchId = @matchId", conn);
+                selectContestIdCmd.Parameters.AddWithValue("@matchId", match.Id);
+                int contestId = (int)selectContestIdCmd.ExecuteScalar();  // Az első értéket lekérjük
 
                 match.GuestGoals = int.Parse(guest);
                 match.HomeGoals = int.Parse(home);
 
+                // Frissítjük a Standings táblát az adott ContestId-ra
+                MySqlCommand updateStandingsCmd = new MySqlCommand(SqlCommans.updateStandings, conn);
+                updateStandingsCmd.Parameters.AddWithValue("@contestId", contestId); // A contestId átadása
+                updateStandingsCmd.ExecuteNonQuery();
+
                 conn.Close();
+                MessageBox.Show("Sikeres javítás és pontszám frissítés!");
                 Notify();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba történt a javítás során: " + ex.Message);
+            }
         }
+
+
+
     }
 }
