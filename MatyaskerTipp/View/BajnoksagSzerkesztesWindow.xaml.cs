@@ -260,7 +260,7 @@ namespace MatyaskerTipp.View
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchesNotInContest, conn);
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchesNotInContest, conn); // todo sql modosítása ava
                 cmd.Parameters.AddWithValue("@id", contestId);
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -273,6 +273,7 @@ namespace MatyaskerTipp.View
 
                     matches.Add(match);
                 }
+                conn.Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -289,7 +290,9 @@ namespace MatyaskerTipp.View
                 cmd.Parameters.AddWithValue("@id", contestId);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("A bajnokság megnyitva!");
+                conn.Close();
             }
+            
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
@@ -303,7 +306,7 @@ namespace MatyaskerTipp.View
                 cmd.Parameters.AddWithValue("@id", contestId);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("A bajnokság lezárva!");
-
+                conn.Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }

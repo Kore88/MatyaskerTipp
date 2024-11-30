@@ -61,25 +61,27 @@ namespace MatyaskerTipp.MySQL
         FROM matyaskert.Match
         JOIN matyaskert.InContest ON InContest.matchId = Match.id
         JOIN matyaskert.Contest ON Contest.id = InContest.contestId
-        WHERE Contest.name = @contestName";
+        WHERE Contest.name = @contestName AND match.isAvailable = 1";
 
         public static string selectMatchId = "SELECT id FROM matyaskert.match WHERE homeName = @homeName AND guestName = @guestName";
         public static string insertInContest = "INSERT INTO InContest (ContestId, MatchId) VALUES (@contestId, @matchId)";
         public static string updateMatchQuery = "UPDATE matyaskert.match SET isAvailable = 1 WHERE id = @matchId";
 
-        public static string selectMatchesInContest = "SELECT id, homeName, guestName " +
+        public static string selectMatchesInContest =
+            "SELECT id, homeName, guestName " +
             "FROM matyaskert.match " +
             "JOIN matyaskert.incontest " +
             "ON matyaskert.match.id = matyaskert.incontest.matchId " +
-            "WHERE matyaskert.incontest.contestId = @id";
+            "WHERE matyaskert.incontest.contestId = @id AND matyaskert.match.isAvailable = 1";
 
-        public static string selectMatchesNotInContest = "SELECT id, homeName, guestName " +
-             "FROM matyaskert.match " +
-             "WHERE matyaskert.match.id NOT IN (" +
-           "    SELECT matyaskert.incontest.matchId " +
+        public static string selectMatchesNotInContest =
+            "SELECT id, homeName, guestName " +
+            "FROM matyaskert.match " +
+            "WHERE matyaskert.match.id NOT IN ( " +
+            "    SELECT matyaskert.incontest.matchId " +
             "    FROM matyaskert.incontest " +
-            "    WHERE matyaskert.incontest.contestId = @id" +
-                ")";
+            "    WHERE matyaskert.incontest.contestId = @id " +
+            ") AND matyaskert.match.isAvailable = 1";
 
         public static string setContestOpened = "UPDATE matyaskert.contest SET isopened = 1 WHERE id = @id";
         public static string setContestClosed = "UPDATE matyaskert.contest SET isopened = 0 WHERE id = @id";

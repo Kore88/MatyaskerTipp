@@ -67,16 +67,16 @@ namespace MatyaskerTipp.View
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(MySqlConn.connection))
-                {
+                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                
                     conn.Open();
 
-                    using (MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchesByContest, conn))
-                    {
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchesByContest, conn);
+                    
                         cmd.Parameters.AddWithValue("@contestName", contestName);
 
-                        using (MySqlDataReader dr = cmd.ExecuteReader())
-                        {
+                MySqlDataReader dr = cmd.ExecuteReader();
+                        
                             while (dr.Read())
                             {
                                 matches.Add(new Match
@@ -87,9 +87,8 @@ namespace MatyaskerTipp.View
                                     Date = dr.GetDateTime("date")
                                 });
                             }
-                        }
-                    }
-                }
+                            conn.Close();
+
             }
             catch (Exception ex)
             {

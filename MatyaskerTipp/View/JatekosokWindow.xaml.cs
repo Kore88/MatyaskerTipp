@@ -78,14 +78,14 @@ namespace MatyaskerTipp.View
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(MySqlConn.connection))
-                {
+                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                
                     conn.Open();
 
-                    using (MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllUsers, conn))
-                    {
-                        using (MySqlDataReader dr = cmd.ExecuteReader())
-                        {
+                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllUsers, conn);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                        
                             while (dr.Read())
                             {
                                 users.Add(new User
@@ -96,9 +96,9 @@ namespace MatyaskerTipp.View
                                     IsActive = dr.GetBoolean("isActive")
                                 });
                             }
-                        }
-                    }
-                }
+                        
+                    conn.Close();
+                
             }
             catch (Exception ex)
             {
