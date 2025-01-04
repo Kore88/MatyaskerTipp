@@ -22,16 +22,6 @@ namespace MatyaskerTipp.MySQL
         public static string selectedContest = "SELECT id, name, startDate, endDate FROM matyaskert.Contest WHERE id = @idx";
         public static string selectAllNotAvailableMatch = "SELECT id, homeName,guestName FROM matyaskert.match WHERE isAvailable = 0";
         public static string selectAllAvailableMatch = "SELECT id, homeName,guestName FROM matyaskert.match WHERE isAvailable = 1";
-        //public static string selectAllNotAvailableMatch = @"
-        //                    SELECT homeName, guestName 
-        //                    FROM matyaskert.match 
-        //                    WHERE isAvailable = 0 
-        //                    AND id NOT IN (SELECT incontest.matchId FROM matyaskert.incontest WHERE incontest.contestId = @contestId)";
-        //public static string selectAllAvailableMatch = @"
-        //                    SELECT homeName, guestName 
-        //                    FROM matyaskert.match 
-        //                    WHERE isAvailable = 1 
-        //                    AND id NOT IN (SELECT incontest.matchId FROM matyaskert.incontest WHERE incontest.contestId = @contestId)";
 
         public static string selectAllNonCheckedMatch = "SELECT id, homeName, guestName FROM matyaskert.match WHERE homeGoals = -1 AND guestGoals = -1";
         public static string selectContestRules = "SELECT scoringrules.description, scoringrules.points, scoringrules.contestId " +

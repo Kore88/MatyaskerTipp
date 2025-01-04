@@ -3,6 +3,7 @@ using MatyaskerTipp.MySQL;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,34 +41,64 @@ namespace MatyaskerTipp.View
         {
             if (cbxTabella.SelectedIndex != -1)
             {
-                userNames = new List<string>();
                 try
                 {
-                    List<ContestPlayer> contestPlayers = new List<ContestPlayer>();
+                    ObservableCollection<ContestPlayer> contestPlayers = new ObservableCollection<ContestPlayer>();
+                    List<User> users = new List<User>();
 
                     MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(SqlCommans.selectContestUsers, conn);
-                    cmd.Parameters.AddWithValue("@selectedContest", cbxTabella.SelectedItem.ToString());
-                    MySqlDataReader dr = cmd.ExecuteReader();
-
-                    while (dr.Read())
                     {
-                        contestPlayers.Add(new ContestPlayer
+                        conn.Open();
+
+                        MySqlCommand cmd1 = new MySqlCommand(SqlCommans.selectAllUser, conn);
+                        MySqlDataReader dr1 = cmd1.ExecuteReader();
                         {
-                            RealName = dr.GetString("realName"),
-                            Points = dr.GetInt32("points")
-                        });
+                            while (dr1.Read())
+                            {
+                                // Populate User object
+                                User user = new User
+                                {
+                                    Id = dr1.GetInt32("id"),
+                                    RealName = dr1.GetString("realName"),
+                                    IsAdmin = dr1.GetBoolean("isAdmin")
+                                };
+                                users.Add(user);
+                            }
+                        }
+
+                        MySqlCommand cmd = new MySqlCommand(SqlCommans.selectContestUsers, conn);
+                        cmd.Parameters.AddWithValue("@selectedContest", cbxTabella.SelectedItem.ToString());
+                        MySqlDataReader dr = cmd.ExecuteReader();
+                        {
+                            while (dr.Read())
+                            {
+                                string realName = dr.GetString("realName");
+
+                                User user = users.FirstOrDefault(u => u.RealName == realName);
+
+                                if (user != null && !user.IsAdmin)
+                                {
+                                    contestPlayers.Add(new ContestPlayer
+                                    {
+                                        RealName = realName,
+                                        Points = dr.GetInt32("points")
+                                    });
+                                }
+                            }
+                        }
                     }
-                    conn.Close();
 
                     dgTabella.ItemsSource = contestPlayers;
                 }
-                
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-
         }
+
+
+
     }
 }
+

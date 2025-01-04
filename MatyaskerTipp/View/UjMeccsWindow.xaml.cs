@@ -49,7 +49,7 @@ namespace MatyaskerTipp.View
                     cmd.Parameters.AddWithValue("@date", dpHatarido.SelectedDate);
                     cmd.Parameters.AddWithValue("@homeGoals", -1);
                     cmd.Parameters.AddWithValue("@guestGoals", -1);
-                    cmd.Parameters.AddWithValue("@isAvailable", 0);
+                    cmd.Parameters.AddWithValue("@isAvailable", 1);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Sikeres hozzáadás!");
                     tbxHazai.Text = "";
