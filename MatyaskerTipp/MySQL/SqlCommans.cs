@@ -76,36 +76,17 @@ namespace MatyaskerTipp.MySQL
         public static string setContestOpened = "UPDATE matyaskert.contest SET isopened = 1 WHERE id = @id";
         public static string setContestClosed = "UPDATE matyaskert.contest SET isopened = 0 WHERE id = @id";
 
-        public static string updateStandings = @"
-    UPDATE matyaskert.standings s 
-    JOIN ( 
-        SELECT 
-            b.UserId, 
-            b.ContestId, 
-            SUM(
-                CASE
-                    -- Hazai győzelem tipp és a valós eredmény is hazai győzelem
-                    WHEN b.HomeGoals > b.GuestGoals AND m.HomeGoals > m.GuestGoals THEN sr.Points
-                    -- Vendég győzelem tipp és a valós eredmény is vendég győzelem
-                    WHEN b.HomeGoals < b.GuestGoals AND m.HomeGoals < m.GuestGoals THEN sr.Points
-                    -- Döntetlen tipp és a valós eredmény is döntetlen
-                    WHEN b.HomeGoals = b.GuestGoals AND m.HomeGoals = m.GuestGoals THEN sr.Points
-                    -- Ha nem volt helyes tipp, nem adunk pontot
-                    ELSE 0
-                END
-            ) AS TotalPoints 
-        FROM matyaskert.bet b 
-        JOIN matyaskert.match m ON b.MatchId = m.Id 
-        JOIN matyaskert.incontest ic ON ic.MatchId = m.Id AND ic.ContestId = b.ContestId 
-        JOIN matyaskert.scoringrules sr ON sr.ContestId = b.ContestId 
-        GROUP BY b.UserId, b.ContestId
-    ) calculatedPoints 
-    ON calculatedPoints.UserId = s.UserID AND calculatedPoints.ContestId = s.ContestID 
-    SET s.Points = calculatedPoints.TotalPoints;
-";
 
 
+       public static string getAllInContest = "SELECT ContestId, MatchId FROM matyaskert.incontest";
+        public static string getAllScoringRules = "SELECT ContestId, Points, Description FROM matyaskert.scoringrules";
+        public static string getAllStandings = "SELECT Points, ContestID, UserID FROM matyaskert.standings";
+        public static string getAllInContests = "SELECT ContestId, MatchId FROM matyaskert.incontest";
+        public static string getAllBets = "SELECT id,ContestId,UserId,MatchID,HomeGoals,GuestGoals,IsWon FROM matyaskert.bet";
 
+        public static string selectAllContest = "SELECT id,name, startDate, endDate, isOpened FROM matyaskert.contest";
+        public static string selectAllMatches = "SELECT * FROM matyaskert.match";
 
     }
 }
+

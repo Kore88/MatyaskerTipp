@@ -95,7 +95,7 @@ namespace MatyaskerTipp.View
 
                 if (retrievedRules != null)
                 {
-                    lbHDV.Content = retrievedRules.Desciption;
+                    lbHDV.Content = retrievedRules.Description;
                     tbxHDVpont.Text = retrievedRules.Points.ToString();
                 }
                 else

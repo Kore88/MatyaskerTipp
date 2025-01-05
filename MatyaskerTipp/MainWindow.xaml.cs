@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Security.Cryptography;
+using MatyaskerTipp.ViewModel;
 
 namespace MatyaskerTipp
 {
@@ -21,8 +23,9 @@ namespace MatyaskerTipp
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
+        { 
             InitializeComponent();
+
         }
 
         private void btnMegse_Click(object sender, RoutedEventArgs e)
@@ -34,7 +37,6 @@ namespace MatyaskerTipp
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                // your event handler here
                 e.Handled = true;
                 btnBejelentkezes_Click(sender, e);
             }
@@ -56,7 +58,10 @@ namespace MatyaskerTipp
                         UserName = dr["UserName"].ToString(),
                         Password = dr["Password"].ToString()
                     };
-                    if ((admin.UserName == tbxFelhasznaloNev.Text && admin.Password == tbxJelszo.Password))
+
+                    string hashedPassword = HashPassword(tbxJelszo.Password);
+
+                    if (admin.UserName == tbxFelhasznaloNev.Text && admin.Password == hashedPassword)
                     {
                         var selectMenuWindow = new SelectMenuWindow();
                         selectMenuWindow.Show();
@@ -79,6 +84,20 @@ namespace MatyaskerTipp
             
                 { MessageBox.Show(ex.Message); }
 
+        }
+
+        private string HashPassword(string password)
+        {
+            using (SHA512 sha512 = SHA512.Create())
+            {
+                byte[] hashBytes = sha512.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (byte b in hashBytes)
+                {
+                    stringBuilder.Append(b.ToString("x2"));
+                }
+                return stringBuilder.ToString();
+            }
         }
 
     }

@@ -13,7 +13,7 @@ namespace MatyaskerTipp.Model
         public int ContestId { get; set; }
         public int UserId { get; set; }
         public int MatchID { get; set; }
-        public int HomeHeals { get; set; }
+        public int HomeGoals { get; set; }
         public int GuestGoals { get; set; }
         public bool IsWon { get; set; } = false;
 
@@ -23,7 +23,7 @@ namespace MatyaskerTipp.Model
             ContestId = contestId;
             UserId = userId;
             MatchID = matchID;
-            HomeHeals = homeHeals;
+            HomeGoals = homeHeals;
             GuestGoals = guestGoals;
             IsWon = isWon;
         }

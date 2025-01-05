@@ -1,5 +1,6 @@
 ﻿using MatyaskerTipp.Model;
 using MatyaskerTipp.MySQL;
+using MatyaskerTipp.ViewModel;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace MatyaskerTipp.View
     {
         private Contest contest;
         private List<string> userNames;
-
+        public ObservableCollection<ContestPlayer> contestPlayers;
 
         public TabellaWindow()
         {
@@ -33,7 +34,6 @@ namespace MatyaskerTipp.View
 
             contest = new Contest();
             cbxTabella.ItemsSource = contest.GetAllContestName();
-            
 
         }
 
@@ -41,9 +41,10 @@ namespace MatyaskerTipp.View
         {
             if (cbxTabella.SelectedIndex != -1)
             {
+                contestPlayers = new ObservableCollection<ContestPlayer>();
                 try
                 {
-                    ObservableCollection<ContestPlayer> contestPlayers = new ObservableCollection<ContestPlayer>();
+                    
                     List<User> users = new List<User>();
 
                     MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
@@ -52,10 +53,9 @@ namespace MatyaskerTipp.View
 
                         MySqlCommand cmd1 = new MySqlCommand(SqlCommans.selectAllUser, conn);
                         MySqlDataReader dr1 = cmd1.ExecuteReader();
-                        {
+                        
                             while (dr1.Read())
                             {
-                                // Populate User object
                                 User user = new User
                                 {
                                     Id = dr1.GetInt32("id"),
@@ -64,12 +64,13 @@ namespace MatyaskerTipp.View
                                 };
                                 users.Add(user);
                             }
-                        }
+                        conn.Close();
+                        conn.Open();
 
                         MySqlCommand cmd = new MySqlCommand(SqlCommans.selectContestUsers, conn);
                         cmd.Parameters.AddWithValue("@selectedContest", cbxTabella.SelectedItem.ToString());
                         MySqlDataReader dr = cmd.ExecuteReader();
-                        {
+                        
                             while (dr.Read())
                             {
                                 string realName = dr.GetString("realName");
@@ -78,14 +79,10 @@ namespace MatyaskerTipp.View
 
                                 if (user != null && !user.IsAdmin)
                                 {
-                                    contestPlayers.Add(new ContestPlayer
-                                    {
-                                        RealName = realName,
-                                        Points = dr.GetInt32("points")
-                                    });
+                                ContestPlayer contestPlayer = new ContestPlayer(realName,dr.GetInt32("Points"));
+                                contestPlayers.Add(contestPlayer);
                                 }
-                            }
-                        }
+                            }                        
                     }
 
                     dgTabella.ItemsSource = contestPlayers;

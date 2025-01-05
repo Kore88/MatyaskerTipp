@@ -10,5 +10,15 @@ namespace MatyaskerTipp.Model
     {
         public string RealName { get; set; }
         public int Points { get; set; }
+
+        public ContestPlayer(string realName,int points)
+        {
+            RealName = realName;
+            Points = points;
+        }
+
+
     }
+
+
 }

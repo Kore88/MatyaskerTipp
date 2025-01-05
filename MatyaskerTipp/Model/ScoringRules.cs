@@ -11,13 +11,13 @@ namespace MatyaskerTipp.Model
 {
     internal class ScoringRules
     {
-        public string Desciption { get; set; }
+        public string Description { get; set; }
         public int Points { get; set; }
         public int ContestId { get; set; }
 
-        public ScoringRules(string desciption, int points, int contestId)
+        public ScoringRules(string description, int points, int contestId)
         {
-            Desciption = desciption;
+            Description = description;
             Points = points;
             ContestId = contestId;
         }
@@ -42,7 +42,7 @@ namespace MatyaskerTipp.Model
                 {
                     rule = new ScoringRules();
 
-                    rule.Desciption = dr.GetString("description");
+                    rule.Description = dr.GetString("description");
                     rule.Points = dr.GetInt32("points");
                     rule.ContestId = dr.GetInt32("contestId");
                 }

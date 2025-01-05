@@ -27,16 +27,18 @@ namespace MatyaskerTipp.View
     {
         private MeccsekViewModel mvm;
         private JavitasViewModel jvm;
-        private Match match;
+
         public MeccsJavitasWindow(int matchId, MeccsekViewModel mevm)
         {
             InitializeComponent();
             mvm = mevm;
             jvm = mvm.jvm;
-            jvm.GetMatchByID(matchId);
-            lbMeccs.Content = jvm.hname + " VS " + jvm.gname;
-            lbGuestName.Content = jvm.gname;
-            lbHomeName.Content = jvm.hname;
+            jvm.GetMatchByID(matchId);  // Megkapjuk a match adatokat a jvm-en keresztül
+
+            // Az jvm.match objektumot használjuk itt
+            lbMeccs.Content = jvm.match.HomeName + " VS " + jvm.match.GuestName;
+            lbGuestName.Content = jvm.match.GuestName;
+            lbHomeName.Content = jvm.match.HomeName;
         }
 
         private void btnMegse_Click(object sender, RoutedEventArgs e)
@@ -48,12 +50,12 @@ namespace MatyaskerTipp.View
         {
             if (tbxGuestGoals.Text != "" && tbxHomeGoals.Text != "")
             {
-                jvm.Javitas(tbxHomeGoals.Text, tbxGuestGoals.Text);
+                // Használjuk a jvm.match objektumot
+                jvm.Javitas(tbxHomeGoals.Text, tbxGuestGoals.Text, jvm.match.Id);
                 this.Close();
             }
             else
                 MessageBox.Show("Mindkét eredmény kitöltése kötelező!");
         }
-
     }
 }

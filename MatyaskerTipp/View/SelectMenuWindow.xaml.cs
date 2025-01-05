@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatyaskerTipp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace MatyaskerTipp.View
     /// </summary>
     public partial class SelectMenuWindow : Window
     {
+
         public SelectMenuWindow()
         {
             InitializeComponent();
