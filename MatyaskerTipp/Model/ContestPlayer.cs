@@ -8,6 +8,7 @@ namespace MatyaskerTipp.Model
 {
     public class ContestPlayer
     {
+        public string UserName { get; set; }
         public string RealName { get; set; }
         public int Points { get; set; }
 
@@ -17,7 +18,13 @@ namespace MatyaskerTipp.Model
             Points = points;
         }
 
+        public ContestPlayer(string userName, string realName, int points) 
+        {
+            UserName = userName;
+            RealName = realName;
+            Points = points;
 
+        }
     }
 
 

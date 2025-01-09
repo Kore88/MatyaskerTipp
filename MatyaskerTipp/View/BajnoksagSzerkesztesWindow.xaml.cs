@@ -82,10 +82,6 @@ namespace MatyaskerTipp.View
             lbxInaktiv.ItemsSource = inaktivMatches;
         }
 
-        private void btnModositas_Click(object sender, RoutedEventArgs e)
-        {
-            btnEltavolitas.IsEnabled = true;
-        }
 
         private void btnModositas2_Click(object sender, RoutedEventArgs e)
         {
@@ -98,40 +94,7 @@ namespace MatyaskerTipp.View
             btnInditas.Visibility = Visibility.Visible;
         }
 
-        private void btnEltavolitas_Click(object sender, RoutedEventArgs e)
-        {
-            if (lbxAktiv.SelectedItem != null)
-            {
-                string selectedMatch = lbxAktiv.SelectedItem.ToString();
-                string[] matchDetails = selectedMatch.Split(' ');  
-                int matchId = Convert.ToInt32(matchDetails[0]);  
 
-                try
-                {
-
-                    MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
-                    conn.Open();
-
-                    string query = "DELETE FROM InContest WHERE ContestId = @contestId AND MatchId = @matchId";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@contestId", contest.Id); 
-                    cmd.Parameters.AddWithValue("@matchId", matchId); 
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-
-                    aktivMatches.Remove(lbxAktiv.SelectedItem.ToString());
-                    bvm.InvokeNotify();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error removing match from contest: " + ex.Message);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a match to remove.");
-            }
-        }
 
         private void btnAktivalas_Click(object sender, RoutedEventArgs e)
         {
@@ -146,14 +109,14 @@ namespace MatyaskerTipp.View
                     int tabIndex = selectedMatch.IndexOf('\t');
                     if (tabIndex == -1)
                     {
-                        MessageBox.Show("Invalid match format.");
+                        MessageBox.Show("Hibás meccsformátum!");
                         return;
                     }
 
                     string matchIdString = selectedMatch.Substring(0, tabIndex).Trim();
                     if (!int.TryParse(matchIdString, out int matchId))
                     {
-                        MessageBox.Show("Invalid match ID.");
+                        MessageBox.Show("Hibás meccs ID!");
                         return;
                     }
 
@@ -167,7 +130,7 @@ namespace MatyaskerTipp.View
                     }
                     else
                     {
-                        MessageBox.Show("Invalid match format. Expected 'Home VS Guest'.");
+                        MessageBox.Show("Hibás meccsformátum!");
                         return;
                     }
 
@@ -185,45 +148,22 @@ namespace MatyaskerTipp.View
 
                     conn.Close();
 
-                    // Update ObservableCollections instead of directly manipulating ListBox.Items
-                    inaktivMatches.Remove(selectedMatch); // Removes from ObservableCollection
-                    aktivMatches.Add(selectedMatch);     // Adds to ObservableCollection
+                   
+                    inaktivMatches.Remove(selectedMatch); 
+                    aktivMatches.Add(selectedMatch);    
                     bvm.InvokeNotify();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error activating match: " + ex.Message);
+                    MessageBox.Show("Hiba a meccs aktiválásakor! " + ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show("Please select a match to activate.");
+                MessageBox.Show("Válassz ki egy meccset az akitváláshoz!");
             }
         }
 
-        //private int GetMatchId(string homeName, string guestName)
-        //{
-        //    try
-        //    {
-        //        MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
-        //        conn.Open();
-
-                
-        //        MySqlCommand cmd = new MySqlCommand(SqlCommans.selectMatchId, conn);
-        //        cmd.Parameters.AddWithValue("@homeName", homeName);
-        //        cmd.Parameters.AddWithValue("@guestName", guestName);
-
-        //        var result = cmd.ExecuteScalar();
-        //        conn.Close();
-
-        //        return result != null ? Convert.ToInt32(result) : 0;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error fetching match ID: " + ex.Message);
-        //        return 0;
-        //    }
-        //}
 
         public List<string> GetAllContestAddedMatches()
         {

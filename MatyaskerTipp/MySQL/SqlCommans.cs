@@ -39,7 +39,7 @@ namespace MatyaskerTipp.MySQL
         public static string updateStatus = "UPDATE matyaskert.User SET isActive = @isActive WHERE id = @id";
 
         public static string selectContestUsers = @"
-        SELECT User.realName, Standings.points 
+        SELECT User.realName, Standings.points , User.userName
         FROM matyaskert.User 
         JOIN matyaskert.Standings ON Standings.userId = User.id 
         JOIN matyaskert.Contest ON Contest.id = Standings.contestId 

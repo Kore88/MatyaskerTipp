@@ -65,14 +65,12 @@ namespace MatyaskerTipp.ViewModel
             List<Bet> bets = new List<Bet>();
             List<Match> matchList = new List<Match>();
 
-
-
             try
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
                 conn.Open();
 
-                // Frissítjük a mérkőzés eredményét
+
                 MySqlCommand updateMatchCmd = new MySqlCommand(SqlCommans.updateMatch, conn);
                 updateMatchCmd.Parameters.AddWithValue("@homeGoals", int.Parse(home));
                 updateMatchCmd.Parameters.AddWithValue("@guestGoals", int.Parse(guest));
@@ -121,7 +119,7 @@ namespace MatyaskerTipp.ViewModel
                 }
                 conn.Close();
 
-                //TODO ez ugyanaz mint a cmd6 azért ellenőrizd
+
                 conn.Open();
                 MySqlCommand cmd3 = new MySqlCommand(SqlCommans.selectAllContest, conn);
                 MySqlDataReader dr3 = cmd3.ExecuteReader();
@@ -157,52 +155,49 @@ namespace MatyaskerTipp.ViewModel
                 conn.Close();
 
                 //TODO ez sem kell
-                conn.Open();
-                MySqlCommand cmd6 = new MySqlCommand(SqlCommans.selectAllContest, conn);
-                MySqlDataReader dr6 = cmd6.ExecuteReader();
-                while (dr6.Read())
-                {
-                    int id = dr6.GetInt32("Id");
-                    string name = dr6.GetString("Name");
-                    DateTime start = dr6.GetDateTime("StartDate");
-                    DateTime end = dr6.GetDateTime("EndDate");
-                    bool open = dr6.GetBoolean("IsOpened");
+                //conn.Open();
+                //MySqlCommand cmd6 = new MySqlCommand(SqlCommans.selectAllContest, conn);
+                //MySqlDataReader dr6 = cmd6.ExecuteReader();
+                //while (dr6.Read())
+                //{
+                //    int id = dr6.GetInt32("Id");
+                //    string name = dr6.GetString("Name");
+                //    DateTime start = dr6.GetDateTime("StartDate");
+                //    DateTime end = dr6.GetDateTime("EndDate");
+                //    bool open = dr6.GetBoolean("IsOpened");
 
-                    Contest contest = new Contest(id, name, start, end, open);
-                    contests.Add(contest);
-                }
-                conn.Close();
+                //    Contest contest = new Contest(id, name, start, end, open);
+                //    contests.Add(contest);
+                //}
+                //conn.Close();
 
                 //TODO ez ide akkor már nem is kell
-                conn.Open();
-                MySqlCommand cmd7 = new MySqlCommand(SqlCommans.selectAllMatches, conn);
-                MySqlDataReader dr7 = cmd7.ExecuteReader();
-                while (dr7.Read())
+                //conn.Open();
+                //MySqlCommand cmd7 = new MySqlCommand(SqlCommans.selectAllMatches, conn);
+                //MySqlDataReader dr7 = cmd7.ExecuteReader();
+                //while (dr7.Read())
+                //{
+                //    int ggoals = dr7.GetInt32("GuestGoals");
+                //    int hgoals = dr7.GetInt32("HomeGoals");
+                //    int matchids = dr7.GetInt32("Id");
+                //    string hname = dr7.GetString("HomeName");
+                //    string gname = dr7.GetString("GuestName");
+                //    DateTime date = dr7.GetDateTime("Date");
+                //    bool ava = dr7.GetBoolean("IsAvailable");
+
+                //    Match match = new Match(hname, gname, date, hgoals, ggoals, ava);
+                //    match.Id = matchids;
+                //    matchList.Add(match);
+                //}
+                //conn.Close();
+
+
+                foreach (InContest incontest in inContestList.Where(i => i.MatchId == matchId)) 
                 {
-                    int ggoals = dr7.GetInt32("GuestGoals");
-                    int hgoals = dr7.GetInt32("HomeGoals");
-                    int matchids = dr7.GetInt32("Id");
-                    string hname = dr7.GetString("HomeName");
-                    string gname = dr7.GetString("GuestName");
-                    DateTime date = dr7.GetDateTime("Date");
-                    bool ava = dr7.GetBoolean("IsAvailable");
 
-                    Match match = new Match(hname, gname, date, hgoals, ggoals, ava);
-                    match.Id = matchids;
-                    matchList.Add(match);
-                }
-                conn.Close();
-
-
-                foreach (InContest incontest in inContestList.Where(i => i.MatchId == matchId)) // TODO IsAvailable kell-e egyelátalán hiszen fenn ezt egyből átállitod az adatbázisban is
-                {
-//                    foreach (Match match in matchList)
-//                    {
-//                        if (/*!match.IsAvailable && */matchId == incontest.MatchId)
-//                        {
                             foreach (Bet bet in bets.Where(b => b.MatchID == matchId && b.ContestId == incontest.ContestId))
                             {
-                                // Helyes fogadás esetén pontszám hozzárendelése
+
                                 if (EvaluateBet(bet, int.Parse(home), int.Parse(guest)))
                                 {
                                     ScoringRules rule = scoringRules.FirstOrDefault(r => r.ContestId == incontest.ContestId);
@@ -212,34 +207,20 @@ namespace MatyaskerTipp.ViewModel
                                     }
                                 }
                             }
- //                       }
- //                   }
                 }
 
-                // 4. Adatbázis frissítése állásokkal
+
                 SaveUpdatedStandings(standings);
 
                 MessageBox.Show("Sikeres javítás és pontszám frissítés!");
-
+                Notify();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Hiba történt: " + ex.Message);
             }
         }
-        //private void UpdateMatchResult(string home, string guest, int matchId)
-        //{
-        //    using (MySqlConnection conn = new MySqlConnection(MySqlConn.connection))
-        //    {
-        //        conn.Open();
-        //        MySqlCommand cmd = new MySqlCommand(SqlCommans.updateMatch, conn);
-        //        cmd.Parameters.AddWithValue("@homeGoals", int.Parse(home));
-        //        cmd.Parameters.AddWithValue("@guestGoals", int.Parse(guest));
-        //        cmd.Parameters.AddWithValue("@isAvailable", 0);
-        //        cmd.Parameters.AddWithValue("@id", matchId);
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //}
+
 
         private bool EvaluateBet(Bet bet, int hgoals, int ggoals)
         {

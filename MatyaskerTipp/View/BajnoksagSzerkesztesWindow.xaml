@@ -29,26 +29,6 @@
                  Grid.Column="0"
                  ></ListBox>
 
-        <Button x:Name="btnEltavolitas"
-                Content="Eltávolítás"
-                IsEnabled="False"
-                Grid.Column="0"
-                Grid.Row="1"
-                Width="80"
-                Height="35"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Margin="40,0,0,0" Click="btnEltavolitas_Click"></Button>
-
-        <Button x:Name="btnModositas"
-                Content="Módosítás"
-                Grid.Column="0"
-                Grid.Row="1"
-                Width="80"
-                Height="35"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Margin="140,0,0,0" Click="btnModositas_Click"></Button>
 
         <Label x:Name="lbInaktivMeccsek"
                Grid.Column="1"
@@ -65,24 +45,30 @@
         <Button x:Name="btnAktivalas"
                 Content="Aktiválás"
                 IsEnabled="False"
-                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Grid.Column="0"
                 Grid.Row="1"
                 Width="80"
                 Height="35"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Margin="40,0,0,0" Click="btnAktivalas_Click"></Button>
+                HorizontalAlignment="Center"
+                Margin="100,0,0,0"
+                Click="btnAktivalas_Click"
+                ></Button>
 
 
         <Button x:Name="btnModositas2"
                 Content="Módosítás"
-                Grid.Column="1"
+                Grid.ColumnSpan="1"
+                Grid.Column="0"
                 Grid.Row="1"
                 Width="80"
                 Height="35"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Margin="140,0,0,0" Click="btnModositas2_Click"></Button>
+                HorizontalAlignment="Center"
+                Click="btnModositas2_Click"
+                Margin="150,0,0,0"
+                ></Button>
 
         <Label x:Name="lbBajnoksag"
               Grid.Column="2"

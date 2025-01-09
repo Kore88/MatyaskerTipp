@@ -60,7 +60,8 @@ namespace MatyaskerTipp.View
                                 {
                                     Id = dr1.GetInt32("id"),
                                     RealName = dr1.GetString("realName"),
-                                    IsAdmin = dr1.GetBoolean("isAdmin")
+                                    IsAdmin = dr1.GetBoolean("isAdmin"),
+                                    UserName = dr1.GetString("userName"),
                                 };
                                 users.Add(user);
                             }
@@ -73,17 +74,19 @@ namespace MatyaskerTipp.View
                         
                             while (dr.Read())
                             {
-                                string realName = dr.GetString("realName");
+                                string userName = dr.GetString("UserName");
+                                string realName = dr.GetString("RealName");
 
-                                User user = users.FirstOrDefault(u => u.RealName == realName);
+                                User user = users.FirstOrDefault(u => u.RealName == realName && u.UserName == userName);
 
                                 if (user != null && !user.IsAdmin)
                                 {
-                                ContestPlayer contestPlayer = new ContestPlayer(realName,dr.GetInt32("Points"));
+                                ContestPlayer contestPlayer = new ContestPlayer(userName,realName,dr.GetInt32("Points"));
                                 contestPlayers.Add(contestPlayer);
                                 }
-                            }                        
-                    }
+                            }
+                        conn.Close();
+                    };
 
                     dgTabella.ItemsSource = contestPlayers;
                 }
