@@ -5,6 +5,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography.X509Certificates;
@@ -45,6 +46,7 @@ namespace MatyaskerTipp.View
             InitializeComponent();
             this.bvm = bvm;
             contestId = idx;
+
             try
             {
                 MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
@@ -255,5 +257,5 @@ namespace MatyaskerTipp.View
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-    }
+    }    
 }
