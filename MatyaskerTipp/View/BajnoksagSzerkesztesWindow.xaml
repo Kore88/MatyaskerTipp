@@ -1,15 +1,33 @@
-﻿<Window x:Class="MatyaskerTipp.View.BajnoksagSzerkesztesWindow"
+﻿<Window          
+        x:Class="MatyaskerTipp.View.BajnoksagSzerkesztesWindow"
+        xmlns:r="using:MatyaskerTipp.Resources"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatyaskerTipp.View"
-        mc:Ignorable="d"
-        Title="BajnoksagSzerkesztesWindow" Height="450" Width="800">
+        ResizeMode="NoResize"
+        Title="Bajnokság szerkesztése" Height="400" Width="1000">
+
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\Resuerces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Style>
+        <StaticResource ResourceKey="GreyWindow"/>
+    </Window.Style>
+    
+
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -25,7 +43,8 @@
                Content="Aktív mérkőzések"></Label>
 
         <ListBox x:Name="lbxAktiv"
-                 Margin="30,50,30,20"
+                 Style="{StaticResource lbColor}"
+                 Margin="10,48,10,22"
                  Grid.Column="0"
                  ></ListBox>
 
@@ -38,37 +57,36 @@
                Content="Inaktív mérkőzések"></Label>
 
         <ListBox x:Name="lbxInaktiv"
-                 Margin="30,50,30,20"
+                 Style="{StaticResource lbColor}"
+                 Margin="0,50,10,20"
                  Grid.Column="1"
                  ></ListBox>
 
         <Button x:Name="btnAktivalas"
+                Style="{StaticResource GelButton}"
                 Content="Aktiválás"
                 IsEnabled="False"
-                Grid.ColumnSpan="2"
-                Grid.Column="0"
+                Grid.Column="1"
                 Grid.Row="1"
                 Width="80"
                 Height="35"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Margin="100,0,0,0"
+                Margin="0,10,0,0"
                 Click="btnAktivalas_Click"
-                ></Button>
+                />
 
 
         <Button x:Name="btnModositas2"
-                Content="Módosítás"
-                Grid.ColumnSpan="1"
-                Grid.Column="0"
+                Style="{StaticResource Redbutton}"
+                Content="Feloldás"
                 Grid.Row="1"
                 Width="80"
                 Height="35"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Click="btnModositas2_Click"
-                Margin="150,0,0,0"
-                ></Button>
+                Click="btnModositas2_Click" Margin="0,10,0,0"
+                />
 
         <Label x:Name="lbBajnoksag"
               Grid.Column="2"
@@ -78,6 +96,7 @@
               Content="Bajnokság szerkesztése"></Label>
 
         <Button x:Name="btnBajnoksagSzerkesztes"
+                Style="{StaticResource OrangeButton}"
                 Grid.Column="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
@@ -87,6 +106,7 @@
                 Width="100" Click="btnBajnoksagSzerkesztes_Click"></Button>
 
         <Button x:Name="btnInditas"
+                Style="{StaticResource GelButton}"
                 Grid.Column="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
@@ -98,10 +118,11 @@
                 Click="btnInditas_Click"></Button>
 
         <Button x:Name="btnLezaras"
+                Style="{StaticResource Redbutton}"
                 Grid.Column="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="0,280,0,0"
+                Margin="0,250,0,0"
                 Content="Bajnokság lezárása"
                 Height="35"
                 Visibility="Hidden"
@@ -109,6 +130,7 @@
                 Click="btnLezaras_Click"></Button>
 
         <Label x:Name="lbContest"
+               Background="Bisque"
                Grid.Column="2"
                Grid.Row="1"
                VerticalAlignment="Center"

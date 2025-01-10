@@ -5,7 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatyaskerTipp.View"
         mc:Ignorable="d"
-        Title="JatekosokWindow" Height="450" Width="600">
+        ResizeMode="NoResize"
+        Title="Játékoksok" Height="450" Width="600">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\Resuerces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Style>
+        <StaticResource ResourceKey="GreyWindow"/>
+    </Window.Style>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"></ColumnDefinition>
@@ -13,6 +27,8 @@
         </Grid.ColumnDefinitions>
 
         <DataGrid x:Name="dgJatekosok"
+                  Background="Bisque"
+                  CellStyle="{StaticResource dgCellStyle}"
                   Grid.Row="1"
                   Grid.ColumnSpan="2"
                   AutoGenerateColumns="False"
@@ -36,7 +52,8 @@
         </DataGrid>
 
         <Button x:Name="btnJovahagyas"
-                Content="Jováhagyás"
+                Style="{StaticResource GelButton}"
+                Content="Jóváhagyás"
                 Grid.Column="1"
                 Margin="45,130,0,0"
                 Height="50"
@@ -45,11 +62,12 @@
 
 
         <Button x:Name="btnSzerkesztes"
+                Style="{StaticResource Redbutton}"
                 Content="Szerkesztés"
                 Grid.Column="1"
                 Margin="45,350,0,0"
                 Height="50"
-                Width="80"
+                Width="100"
                 VerticalAlignment="Top" Click="btnSzerkesztes_Click"></Button>
 
     </Grid>

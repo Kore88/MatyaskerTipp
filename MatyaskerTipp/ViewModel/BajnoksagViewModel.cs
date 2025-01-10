@@ -19,16 +19,38 @@ namespace MatyaskerTipp.ViewModel
         {
         }
 
-        public void BajnoksagSzerkesztes(int idx)
+        public void BajnoksagSzerkesztes(int idx, double l, double w, double t, double h)
         {
-            BajnoksagSzerkesztesWindow window = new BajnoksagSzerkesztesWindow(this, idx);
-            window.Show();
+            var existingWindow = Application.Current.Windows.OfType<BajnoksagSzerkesztesWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new BajnoksagSzerkesztesWindow();
+                window.Left = l + w - window.Width;
+                window.Top = t - window.Height - 10;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("A bajnokság szerkesztése ablak már meg van nyitva.");
+            }
         }
 
-        public void UjBajnoksag()
+        public void UjBajnoksag(double l, double w, double t, double h)
         {
-            UjBajknoksagWindow window = new UjBajknoksagWindow(this);
-            window.Show();
+            var existingWindow = Application.Current.Windows.OfType<UjBajknoksagWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new UjBajknoksagWindow();
+                window.Left = l - window.Width - 10;
+                window.Top = t;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("Az új bajnokság ablak már meg van nyitva.");
+            }
         }
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

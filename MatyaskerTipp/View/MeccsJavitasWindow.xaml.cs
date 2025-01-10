@@ -33,9 +33,8 @@ namespace MatyaskerTipp.View
             InitializeComponent();
             mvm = mevm;
             jvm = mvm.jvm;
-            jvm.GetMatchByID(matchId);  // Megkapjuk a match adatokat a jvm-en keresztül
+            jvm.GetMatchByID(matchId); 
 
-            // Az jvm.match objektumot használjuk itt
             lbMeccs.Content = jvm.match.HomeName + " VS " + jvm.match.GuestName;
             lbGuestName.Content = jvm.match.GuestName;
             lbHomeName.Content = jvm.match.HomeName;

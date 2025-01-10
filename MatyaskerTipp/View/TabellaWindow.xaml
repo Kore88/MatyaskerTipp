@@ -5,7 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatyaskerTipp.View"
         mc:Ignorable="d"
-        Title="TabellaWindow" Height="450" Width="350">
+        ResizeMode="NoResize"
+        Title="Tabella" Height="460" Width="400">
+    <Window.Resources>
+
+
+        <ResourceDictionary>
+
+            <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Background" Value="LightBlue"/>
+            </Style>
+
+            <Style x:Key="CenterTextStyle" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="CenterGridCellStyle" TargetType="DataGridCell">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Background" Value="Bisque" />
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1.5" />
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\Resuerces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -16,37 +49,46 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label x:Name="lbTabella"
-               Grid.ColumnSpan="2"
-               Content="Tabella"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"></Label>
+            <Label x:Name="lbTabella"
+                   Grid.ColumnSpan="2"
+                   Content="Tabella"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"></Label>
 
-        <ComboBox x:Name="cbxTabella"
-                  Grid.Row="0"
-                  Grid.ColumnSpan="2"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Margin="0,50,0,0"
-                  Width="100"
-                  SelectionChanged="cbxTabella_SelectionChanged"
-                  ></ComboBox>
+            <ComboBox x:Name="cbxTabella"
+                      ItemContainerStyle="{StaticResource cbxColor}"                
+                      Style="{StaticResource cbxStyle}"
+                      Grid.Row="0"
+                      Grid.ColumnSpan="2"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Margin="0,50,0,0"
+                      Width="100"
+                      SelectionChanged="cbxTabella_SelectionChanged"
+                      ></ComboBox>
 
-        <DataGrid x:Name="dgTabella"
-          Grid.Row="1"
-          Grid.ColumnSpan="2"
-          AutoGenerateColumns="False"
-          VerticalAlignment="Center"
-          HorizontalAlignment="Center"
-          Width="255"
-          Height="300"
-          Margin="0,20,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Felhasználónév" Binding="{Binding UserName}" Width="100" />
-                <DataGridTextColumn Header="Játékos neve" Binding="{Binding RealName}" Width="100" />
-                <DataGridTextColumn Header="Pontok" Binding="{Binding Points}" Width="50" />
-            </DataGrid.Columns>
-        </DataGrid>
+            <DataGrid x:Name="dgTabella"
+              ColumnHeaderStyle="{StaticResource CenterGridHeaderStyle}"
+              CellStyle="{StaticResource CenterGridCellStyle}"
+              Background="Bisque"
+              Grid.Row="1"
+              Grid.ColumnSpan="2"
+              AutoGenerateColumns="False"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Width="370"
+              Height="300"
+              Margin="0,20,0,0">
+            <DataGrid.Columns >
+                    <DataGridTextColumn Header="Felhasználónév" Binding="{Binding UserName}" Width="150"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+                    <DataGridTextColumn Header="Játékos neve" Binding="{Binding RealName}" Width="150"
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+                    <DataGridTextColumn Header="Pontok" Binding="{Binding Points}" Width="62" 
+                                        ElementStyle="{StaticResource CenterTextStyle}"/>
+                </DataGrid.Columns>
+                
+            </DataGrid>
 
     </Grid>
 </Window>

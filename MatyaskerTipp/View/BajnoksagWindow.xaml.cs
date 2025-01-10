@@ -40,14 +40,14 @@ namespace MatyaskerTipp.View
         {
             if (cbxBajnoksagok.SelectedIndex != -1)
             {
-                bvm.BajnoksagSzerkesztes(cbxBajnoksagok.SelectedIndex + 1);
+                bvm.BajnoksagSzerkesztes(cbxBajnoksagok.SelectedIndex + 1, this.Left, this.Width, this.Top, this.Height);
             }
 
         }
 
         private void btnUjBajnoksag_Click(object sender, RoutedEventArgs e)
         {
-            bvm.UjBajnoksag();
+            bvm.UjBajnoksag(this.Left, this.Width, this.Top, this.Height);
         }
 
         private void cbxBajnoksagok_SelectionChanged(object sender, SelectionChangedEventArgs e)

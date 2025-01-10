@@ -5,7 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatyaskerTipp.View"
         mc:Ignorable="d"
-        Title="UjBajknoksagWindow" Height="350" Width="400">
+        ResizeMode="NoResize"
+        Title="Új bajnokság" Height="350" Width="400">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\Resuerces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Style>
+        <StaticResource ResourceKey="GreyWindow"/>
+    </Window.Style>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -35,6 +49,7 @@
 
 
         <Button x:Name="btnMegse"
+                Style="{StaticResource OrangeButton}"
                 Grid.Column="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
@@ -44,6 +59,7 @@
                 Content="Mégse" Click="btnMegse_Click"></Button>
         
         <TextBox x:Name="tbxBajnoksagNev"
+                 Background="Bisque"
                  Grid.Column="1"
                  VerticalAlignment="Top"
                  HorizontalAlignment="Center"
@@ -51,12 +67,14 @@
                  Width="120"></TextBox>
 
         <DatePicker x:Name="dpKezdo"
+                    Background="Bisque"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Margin="0,110,0,0"></DatePicker>
 
         <DatePicker x:Name="dpVege"
+                    Background="Bisque"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
@@ -64,12 +82,15 @@
 
         <Button x:Name="btnHozzad"
                 Grid.Column="1"
+                Style="{StaticResource GelButton}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center"
                 Content="Bajnokság létrehozása"
-                Width="130"
+                Width="150"
                 Height="30"
-                Margin="0,0,0,30" Click="btnHozzad_Click"></Button>
+                Margin="0,0,0,30" 
+                Click="btnHozzad_Click"></Button>
+        
         
     </Grid>
 </Window>

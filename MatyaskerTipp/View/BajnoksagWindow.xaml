@@ -5,41 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatyaskerTipp.View"
         mc:Ignorable="d"
-        Title="BajnoksagWindow" Height="450" Width="600">
+        ResizeMode="NoResize"
+        Title="Bajnokság" Height="450" Width="650">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\Resuerces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Style>
+        <StaticResource ResourceKey="GreyWindow"/>
+    </Window.Style>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <ComboBox x:Name="cbxBajnoksagok"
+                  ItemContainerStyle="{StaticResource cbxColor}"                
+                  Style="{StaticResource cbxStyle}"
                   Grid.Column="1"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top"
                   Margin="0,15,0,0"
-                  Width="150" SelectionChanged="cbxBajnoksagok_SelectionChanged"></ComboBox>
+                  Width="150" 
+                  SelectionChanged="cbxBajnoksagok_SelectionChanged"></ComboBox>
 
         <ListBox x:Name="lbxMeccsek"
+                 Style="{StaticResource lbColor}"
                  Grid.Column="1"
                  Margin="50"></ListBox>
 
         <Button x:Name="btnUjBajnoksag"
+                Style="{StaticResource GelButton}"
                 Content="Új bajnokság"
                 Grid.Column="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="top"
                 Width="100"
                 Height="35"
-                Margin="0,30,0,0" Click="btnUjBajnoksag_Click"></Button>
+                Margin="0,100,0,0" Click="btnUjBajnoksag_Click"></Button>
 
         <Button x:Name="btnSzerkesztes"
+                Style="{StaticResource Redbutton}"
                 Content="Szerkesztés"
                 Grid.Column="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="top"
                 Width="100"
                 Height="35"
-                Margin="0,130,0,0" Click="btnSzerkesztes_Click"></Button>
+                Margin="0,250,0,0" Click="btnSzerkesztes_Click"></Button>
 
     </Grid>
 </Window>

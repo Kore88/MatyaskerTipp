@@ -1,4 +1,6 @@
-﻿<Window xmlns:v="using:MatyaskerTipp.View"
+﻿
+
+<Window 
         xmlns:r="using:MatyaskerTipp.Resources"
         x:Class="MatyaskerTipp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,8 +10,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatyaskerTipp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600">
-    
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="Bejelentkezés" Height="400" Width="600">
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,6 +22,10 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <Window.Style>
+        <StaticResource ResourceKey="GreyWindow"/>
+    </Window.Style>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"></ColumnDefinition>
@@ -25,13 +33,16 @@
             <ColumnDefinition Width="200"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Image x:Name="imgLogo"
+        <Ellipse x:Name="imgLogo"
                Grid.Column="0"
-               Width="150"
+               Width="200"
                Height="150"
                Margin="0,50,0,0"
-               VerticalAlignment="Top"
-               Source="Images/logo.jpg"></Image>
+               VerticalAlignment="Top">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/logo.jpg" />
+            </Ellipse.Fill>
+        </Ellipse>
 
         <Button x:Name="btnKilepes"
                 Style="{StaticResource OrangeButton}"
@@ -50,6 +61,7 @@
                Margin="0,60,0,0"></Label>
         
         <TextBox x:Name="tbxFelhasznaloNev"
+               Background="Bisque"
                Grid.Column="1"
                VerticalAlignment="Top"
                Width="120"
@@ -63,6 +75,7 @@
                Width="120"
                Margin="0,160,0,0"></Label>
         <PasswordBox x:Name="tbxJelszo"
+               Background="Bisque"
                Grid.Column="1"
                VerticalAlignment="Top"
                Width="120"
@@ -71,13 +84,16 @@
                Margin="0,200,0,0">
         </PasswordBox>
 
-        <Image x:Name="imgLogo1"
+        <Ellipse x:Name="imgLogo2"
                Grid.Column="2"
-               Width="150"
+               Width="200"
                Height="150"
                Margin="0,50,0,0"
-               VerticalAlignment="Top"
-               Source="Images/logo.jpg"></Image>
+               VerticalAlignment="Top">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/logo.jpg" />
+            </Ellipse.Fill>
+        </Ellipse>
 
         <Button x:Name="btnBejelentkezes"
                 Style="{StaticResource GelButton}"

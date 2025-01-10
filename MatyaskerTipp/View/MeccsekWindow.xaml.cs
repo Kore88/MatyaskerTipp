@@ -38,14 +38,19 @@ namespace MatyaskerTipp.View
 
         private void btnHozzaad_Click(object sender, RoutedEventArgs e)
         {
-            mvm.Hozzaad();
+            
+            mvm.Hozzaad(this.Left, this.Width, this.Top, this.Height);
         }
 
         private void btnJavitas_Click(object sender, RoutedEventArgs e)
         {
             if (lbxMeccsek.SelectedIndex != -1)
             {
-                mvm.Javitas(lbxMeccsek.SelectedItem.ToString());
+                mvm.Javitas(lbxMeccsek.SelectedItem.ToString(), this.Left, this.Width, this.Top, this.Height);
+            }
+            else
+            {
+                MessageBox.Show("Nincs mérkőzés kiválasztva!");
             }
         }
 

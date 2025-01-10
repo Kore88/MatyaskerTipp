@@ -1,4 +1,5 @@
 ﻿<Window x:Class="MatyaskerTipp.View.MeccsekWindow"
+        xmlns:r="using:MatyaskerTipp.Resources"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +7,21 @@
         xmlns:local="clr-namespace:MatyaskerTipp.View"
         xmlns:vm="clr-namespace:MatyaskerTipp.ViewModel"
         mc:Ignorable="d"
-        Title="MeccsekWindow" Height="350" Width="300">
+        ResizeMode="NoResize"
+        Title="Meccsek" Height="350" Width="550">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\Resuerces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Style>
+        <StaticResource ResourceKey="GreyWindow"/>
+    </Window.Style>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
@@ -14,15 +29,17 @@
         </Grid.ColumnDefinitions>
 
         <Button x:Name="btnHozzaad"
+                Style="{StaticResource GelButton}"
                 Grid.Column="0"
                 Content="Új meccs"
                 Width="90"
                 Height="30"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Margin="0,30,0,0" Click="btnHozzaad_Click"></Button>
+                Margin="0,90,0,0" Click="btnHozzaad_Click"></Button>
 
         <Button x:Name="btnJavitas"
+                Style="{StaticResource Redbutton}"
                 Grid.Column="0"
                 Content="Javítás"
                 Width="90"
@@ -39,6 +56,7 @@
                Grid.Column="1"></Label>
         
         <ListBox x:Name="lbxMeccsek"
+                 Style="{StaticResource lbColor}"
                  Grid.Column="1"
                  Margin="20,50,20,20">
         </ListBox>

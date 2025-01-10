@@ -29,37 +29,99 @@ namespace MatyaskerTipp.View
 
         private void btnTabella_Click(object sender, RoutedEventArgs e)
         {
-            var window = new TabellaWindow();
-            window.Show();
+            var existingWindow = Application.Current.Windows.OfType<TabellaWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new TabellaWindow();
+                window.Left = this.Left + this.Width + 10;
+                window.Top = this.Top - window.Height - 10;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("A tabella ablak már meg van nyitva.");
+            }
         }
 
         private void btnJatekosok_Click(object sender, RoutedEventArgs e)
         {
-            var window = new JatekosokWindow();
-            window.Show();
+            var existingWindow = Application.Current.Windows.OfType<JatekosokWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new JatekosokWindow();
+                window.Left = this.Left - window.Width + this.Width;
+                window.Top = this.Top + this.Height + 10;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("A játékosok ablak már meg van nyitva.");
+            }
         }
 
         private void btnBajnoksag_Click(object sender, RoutedEventArgs e)
         {
-            var window = new BajnoksagWindow();
-            window.Show();
+
+
+            var existingWindow = Application.Current.Windows.OfType<BajnoksagWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new BajnoksagWindow();
+                window.Left = this.Left - window.Width -10;
+                window.Top = this.Top;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("A bajnokság ablak már meg van nyitva.");
+            }
+
         }
 
         private void btnPontrendszer_Click(object sender, RoutedEventArgs e)
         {
-            var window = new PontrendszerWindow();
-            window.Show();
+            var existingWindow = Application.Current.Windows.OfType<PontrendszerWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new PontrendszerWindow();
+                window.Left = this.Left + this.Width + 10;
+                window.Top = this.Top + 350 + 10;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("A pontrendszer ablak már meg van nyitva.");
+            }
         }
 
         private void btnKielepes_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Application.Current.Shutdown();
         }
 
         private void btnMeccsek_Click(object sender, RoutedEventArgs e)
         {
-            var window = new MeccsekWindow();
-            window.Show();
+
+
+            var existingWindow = Application.Current.Windows.OfType<MeccsekWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new MeccsekWindow();
+                window.Left = this.Left + this.Width + 10;
+                window.Top = this.Top;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("A meccsek ablak már meg van nyitva.");
+            }
+
+
         }
     }
 }

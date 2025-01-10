@@ -1,4 +1,5 @@
-﻿using MatyaskerTipp.Model;
+﻿using K4os.Compression.LZ4.Internal;
+using MatyaskerTipp.Model;
 using MatyaskerTipp.View;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,26 @@ namespace MatyaskerTipp.ViewModel
             jvm.PropertyChanged += PropertyChanged;
             items = match.GetAllNonCheckedMatches();
         }
-        public void Hozzaad()
+
+
+        public void Hozzaad(double l, double w, double t, double h)
         {
-            var window = new UjMeccsWindow(this);
-            window.Show();
+            var existingWindow = Application.Current.Windows.OfType<UjMeccsWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {     
+                var hozzaAdWindow = new UjMeccsWindow();
+                hozzaAdWindow.Left = l + w + 10;
+                hozzaAdWindow.Top = t;
+                hozzaAdWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("A meccs hozzáadás ablak már meg van nyitva.");
+            }
         }
 
-        public void Javitas(string name)
+        public void Javitas(string name, double l, double w, double t, double h)
         {
             string theID = null;
             string selected = name;
@@ -39,8 +53,21 @@ namespace MatyaskerTipp.ViewModel
                      break;
             }
             int meccsId = int.Parse(theID);
-            MeccsJavitasWindow window = new MeccsJavitasWindow(meccsId, this);
-            window.Show();
+
+            var existingWindow = Application.Current.Windows.OfType<MeccsJavitasWindow>().FirstOrDefault();
+
+            if (existingWindow == null)
+            {
+                var window = new MeccsJavitasWindow(meccsId, this);
+                window.Left = l + w + 10;
+                window.Top = t + h + 10;
+                window.Show();
+            }
+            else
+            {
+                MessageBox.Show("A meccs javító ablak már meg van nyitva.");
+            }
+
         }
 
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

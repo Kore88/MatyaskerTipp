@@ -5,7 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatyaskerTipp.View"
         mc:Ignorable="d"
-        Title="UjMeccsWindow" Height="350" Width="350">
+        ResizeMode="NoResize"
+        Title="Új mérkőzés" Height="350" Width="350">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\Resuerces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Style>
+        <StaticResource ResourceKey="GreyWindow"/>
+    </Window.Style>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
@@ -41,6 +55,7 @@
                Margin="0,220,0,0"></Label>
 
         <TextBox x:Name="tbxHazai"
+                 Background="Bisque"
                  Grid.Column="1"
                  Width="200"
                  VerticalAlignment="Top"
@@ -49,6 +64,7 @@
                  Height="20"></TextBox>
 
         <TextBox x:Name="tbxVendeg"
+                 Background="Bisque"
                  Grid.Column="1"
                  Width="200"
                  VerticalAlignment="Top"
@@ -57,25 +73,32 @@
                  Height="20"></TextBox>
 
         <DatePicker x:Name="dpHatarido"
+                    Background="Bisque"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Margin="0,220,0,0"></DatePicker>
 
         <Button x:Name="btnMegse"
+                Style="{StaticResource OrangeButton}"
                 Grid.Column="0"
                 Grid.Row="1"
                 Content="Mégse"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Width="80" Click="btnMegse_Click"></Button>
+                Height="30"
+                Width="80" 
+                Click="btnMegse_Click"></Button>
 
         <Button x:Name="btnHozzadas"
+                Style="{StaticResource GelButton}"
                 Grid.Column="1"
                 Grid.Row="1"
                 Content="Hozzáadás"
                 VerticalAlignment="Center"
-                Width="80" Click="btnHozzadas_Click"></Button>
+                Height="30"
+                Width="80" 
+                Click="btnHozzadas_Click"></Button>
 
 
     </Grid>
