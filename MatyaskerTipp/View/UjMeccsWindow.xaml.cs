@@ -29,10 +29,6 @@ namespace MatyaskerTipp.View
             this.mvm = mvm;
             InitializeComponent();
         }
-        public UjMeccsWindow()
-        {
-            InitializeComponent();
-        }
 
         private void btnMegse_Click(object sender, RoutedEventArgs e)
         {

@@ -25,7 +25,7 @@ namespace MatyaskerTipp.ViewModel
 
             if (existingWindow == null)
             {
-                var window = new BajnoksagSzerkesztesWindow();
+                var window = new BajnoksagSzerkesztesWindow(this,idx);
                 window.Left = l + w - window.Width;
                 window.Top = t - window.Height - 10;
                 window.Show();

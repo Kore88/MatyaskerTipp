@@ -30,7 +30,7 @@ namespace MatyaskerTipp.ViewModel
 
             if (existingWindow == null)
             {     
-                var hozzaAdWindow = new UjMeccsWindow();
+                var hozzaAdWindow = new UjMeccsWindow(this);
                 hozzaAdWindow.Left = l + w + 10;
                 hozzaAdWindow.Top = t;
                 hozzaAdWindow.Show();

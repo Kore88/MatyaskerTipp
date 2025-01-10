@@ -36,10 +36,6 @@ namespace MatyaskerTipp.View
         private int contestId;
         private BajnoksagViewModel bvm;
 
-        public BajnoksagSzerkesztesWindow()
-        {
-            InitializeComponent();
-        }
 
         public BajnoksagSzerkesztesWindow(BajnoksagViewModel bvm, int idx)
         {
