@@ -62,6 +62,7 @@ namespace MatyaskerTipp
                     };
 
                     string hashedPassword = HashPassword(tbxJelszo.Password);
+                    hashedPassword = hashedPassword.ToUpper();
 
                     if (admin.UserName == tbxFelhasznaloNev.Text && admin.Password == hashedPassword)
                     {

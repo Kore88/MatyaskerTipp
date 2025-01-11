@@ -35,7 +35,7 @@ namespace MatyaskerTipp.View
             {
                 var window = new TabellaWindow();
                 window.Left = this.Left + this.Width + 10;
-                window.Top = this.Top - window.Height - 10;
+                window.Top = 0;
                 window.Show();
             }
             else
@@ -52,7 +52,7 @@ namespace MatyaskerTipp.View
             {
                 var window = new JatekosokWindow();
                 window.Left = this.Left - window.Width + this.Width;
-                window.Top = this.Top + this.Height + 10;
+                window.Top = window.Top = System.Windows.SystemParameters.PrimaryScreenHeight - window.Height - 50;
                 window.Show();
             }
             else
