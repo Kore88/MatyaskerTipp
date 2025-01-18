@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace MatyaskerTipp.MySQL
 {
+
     internal class MySqlConn
     {
         public static string connection = "server=localhost; pwd=Bl@zor1234; database=matyaskert; uid=Blazor";
     }
+
+
 }

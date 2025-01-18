@@ -58,89 +58,89 @@ namespace MatyaskerTipp.Model
             HomeGoals = -1;
         }
 
-        public List<string> GetAllNotAviableMatches()
-        {
-            List<string> matches = new List<string>();
-            try
+            public List<string> GetAllNotAviableMatches()
             {
-                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllNotAvailableMatch, conn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                List<string> matches = new List<string>();
+                try
                 {
-                    int matchId = dr.GetInt32("Id");
-                    string home = dr.GetString("homeName");
-                    string guest = dr.GetString("guestName");
+                    MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllNotAvailableMatch, conn);
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        int matchId = dr.GetInt32("Id");
+                        string home = dr.GetString("homeName");
+                        string guest = dr.GetString("guestName");
 
-                    string match = $"{matchId} {home} VS {guest}";
+                        string match = $"{matchId} {home} VS {guest}";
 
-                    matches.Add(match);
+                        matches.Add(match);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error fetching not available matches: " + ex.Message);
-            }
-
-            return matches;
-        }
-
-        public List<string> GetAllAviableMatches()
-        {
-            List<string> matches = new List<string>();
-            try
-            {
-                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllAvailableMatch, conn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                catch (Exception ex)
                 {
-                    int matchId = dr.GetInt32("Id");
-                    string home = dr.GetString("homeName");
-                    string guest = dr.GetString("guestName");
-
-                    string match = $"{matchId} {home} VS {guest}";
-
-                    matches.Add(match);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error fetching available matches: " + ex.Message);
-            }
-
-            return matches;
-        }
-
-        public List<string> GetAllNonCheckedMatches()
-        {
-            List<string> matches = new List<string>();
-            try
-            {
-                MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllNonCheckedMatch, conn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    string id = dr.GetInt32("id").ToString();
-                    string home = dr.GetString("homeName");
-                    string guest = dr.GetString("guestName");
-
-                    string match =id+"\t"+ home + "  VS  " + guest;
-
-                    matches.Add(match);
+                    MessageBox.Show("Error fetching not available matches: " + ex.Message);
                 }
 
+                return matches;
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            public List<string> GetAllAviableMatches()
+            {
+                List<string> matches = new List<string>();
+                try
+                {
+                    MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllAvailableMatch, conn);
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        int matchId = dr.GetInt32("Id");
+                        string home = dr.GetString("homeName");
+                        string guest = dr.GetString("guestName");
+
+                        string match = $"{matchId} {home} VS {guest}";
+
+                        matches.Add(match);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching available matches: " + ex.Message);
+                }
+
+                return matches;
+            }
+
+            public List<string> GetAllNonCheckedMatches()
+            {
+                List<string> matches = new List<string>();
+                try
+                {
+                    MySqlConnection conn = new MySqlConnection(MySqlConn.connection);
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(SqlCommans.selectAllNonCheckedMatch, conn);
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        string id = dr.GetInt32("id").ToString();
+                        string home = dr.GetString("homeName");
+                        string guest = dr.GetString("guestName");
+
+                        string match =id+"\t"+ home + "  VS  " + guest;
+
+                        matches.Add(match);
+                    }
+
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
 
 
 
-            return matches;
-        }
+                return matches;
+            }
 
 
 

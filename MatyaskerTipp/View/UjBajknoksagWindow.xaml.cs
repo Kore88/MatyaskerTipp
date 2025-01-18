@@ -29,10 +29,6 @@ namespace MatyaskerTipp.View
             InitializeComponent();
         }
 
-        public UjBajknoksagWindow()
-        {
-            InitializeComponent();
-        }
 
         private void btnMegse_Click(object sender, RoutedEventArgs e)
         {
